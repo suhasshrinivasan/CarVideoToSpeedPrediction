@@ -14,6 +14,7 @@ from video_to_frames import get_video_frames
 from model_testing import hp_sweep, init_model
 
 # Initial Setup
+using = 'cpu'
 data_dir = 'data/'
 filename_base = 'drive'
 data_filename_base = os.path.join(data_dir, filename_base)
@@ -63,23 +64,20 @@ print('Simple Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
-go_backwards = True  # Whether or not to predict using data from both directions
+go_backwards = False  # Whether or not to predict using data from both directions
+l1_reg = 1.0
+l2_reg = 1.0
 model = Sequential()
-model.add(GRU(200, return_sequences=False, unroll=True, consume_less='cpu',
-    input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards))
-    # W_regularizer=l1l2(l1=0.01, l2=0.01), U_regularizer=l1l2(l1=0.01, l2=0.01),
-    # b_regularizer=l1l2(l1=0.01, l2=0.01), dropout_W=0.5, dropout_U=0.5))
+model.add(GRU(200, unroll=True, consume_less=using,
+    input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+    W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+    b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=0.5, dropout_U=0.5))
 
-# model.add(GRU(10, return_sequences=False, unroll=True, consume_less='cpu',
-#     go_backwards=go_backwards,
-#     W_regularizer=l1l2(l1=0.01, l2=0.01), U_regularizer=l1l2(l1=0.01, l2=0.01),
-#     b_regularizer=l1l2(l1=0.01, l2=0.01), dropout_W=0.5, dropout_U=0.5))
-
-model.add(BatchNormalization())
-model.add(Dense(100, activation='relu'))
-model.add(BatchNormalization())
-model.add(Dense(10, activation='relu'))
-model.add(BatchNormalization())
+# model.add(BatchNormalization())
+# model.add(Dense(100, activation='relu'))
+# model.add(BatchNormalization())
+# model.add(Dense(10, activation='relu'))
+# model.add(BatchNormalization())
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 t = time.time()
