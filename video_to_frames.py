@@ -14,6 +14,7 @@ def get_video_frames(data_filepath, override_existing=True):
     if os.path.exists(data_frames_dir) and not override_existing:
         print('Data converted to frames already.')
     else:
+        print('Getting Frames...')
         os.makedirs(data_frames_dir)
         vidcap = cv2.VideoCapture(data_filepath)
         success,image = vidcap.read()

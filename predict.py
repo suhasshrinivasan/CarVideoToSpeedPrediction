@@ -1,6 +1,7 @@
 import json
 from keras.models import Sequential
 from keras.layers import Dense, GRU, LSTM, SimpleRNN
+from keras.regularizers import l1l2
 import numpy as np
 import os
 from sklearn.metrics import mean_squared_error
@@ -57,16 +58,17 @@ print('Simple Model MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
-look_back = 1  # How far back in time the RNN should use for making predictions
 go_backwards = True  # Whether or not to predict using data from both directions
 model = Sequential()
 model.add(GRU(200, return_sequences=False, unroll=True, consume_less='cpu',
-    input_dim=X_train.shape[-1], input_length=look_back, go_backwards=go_backwards,
-    dropout_W=0.1, dropout_U=0.1))
+    input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+    W_regularizer=l1l2(l1=0.01, l2=0.01), U_regularizer=l1l2(l1=0.01, l2=0.01),
+    b_regularizer=l1l2(l1=0.01, l2=0.01), dropout_W=0.5, dropout_U=0.5))
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 t = time.time()
-model.fit(X_train, y_train, nb_epoch=50, batch_size=100, verbose=2)
+model.fit(X_train, y_train, nb_epoch=50, batch_size=300, validation_split=0.1,
+    verbose=2)
 print(time.time()-t)
 
 y_train_pred = model.predict(X_train)
