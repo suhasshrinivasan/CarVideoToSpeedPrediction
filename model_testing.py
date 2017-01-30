@@ -40,7 +40,7 @@ def init_configs(model_type):
     model_type = str.lower(model_type)
     configs = []
     if model_type == 'ridge':  # Ridge Regression (L2 Penalty)
-        for alpha in np.logspace(-6, 6, 30):
+        for alpha in np.logspace(-2, 5, 30):
             configs.append({'model_type': model_type, 'alpha': alpha})
     elif model_type == 'lasso':  # Lasso Regression (L1 Penalty)
         for alpha in np.logspace(-6, 6, 30):

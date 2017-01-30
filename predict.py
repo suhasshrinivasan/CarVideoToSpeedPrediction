@@ -5,6 +5,7 @@ from keras.layers import Dense, GRU, LSTM, SimpleRNN
 from keras.layers.core import Reshape
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l1l2
+import matplotlib
 import numpy as np
 import os
 from sklearn.metrics import mean_squared_error
@@ -19,6 +20,8 @@ from model_testing import hp_sweep, init_model
 from smooth_signal import ma_smoothing, ewma_smoothing
 
 # Initial Setup
+matplotlib.use('qt5agg')
+import matplotlib.pyplot as plt
 smooth_signal = ma_smoothing
 using = 'cpu'
 if len(sys.argv) == 2:
@@ -45,25 +48,36 @@ time_speed_data = np.array(json.loads(time_speed_data))
 assert(X.shape[0] == time_speed_data.shape[0])
 split_fraction = 0.9
 num_train = int(X.shape[0] * split_fraction)
+num_test = X.shape[0] - num_train
 X_train = X[:num_train,:]
 X_test = X[num_train:,:]
+# X_train = X[num_test:,:]
+# X_test = X[:num_test,:]
 time_speed_data_train = time_speed_data[:num_train,:]
 time_speed_data_test = time_speed_data[num_train:,:]
+# time_speed_data_train = time_speed_data[num_test:,:]
+# time_speed_data_test = time_speed_data[:num_test,:]
 time_train = time_speed_data_train[:,0].reshape(-1,1)
 y_train = time_speed_data_train[:,1].reshape(-1,1)
 time_test = time_speed_data_test[:,0].reshape(-1,1)
 y_test = time_speed_data_test[:,1].reshape(-1,1)
+
+# Additional preprocessing: row-wise differences
+data_smoothing_window_size = 135
+X_train = ma_smoothing(X_train, data_smoothing_window_size)
+X_test = ma_smoothing(X_test, data_smoothing_window_size)
 print('Data processed.')
 
 ### Predict
 # Simple Model
-best_config = {'model_type': 'ridge', 'alpha': 3000}  # 8.44 MSE
+# best_config = {'model_type': 'ridge', 'alpha': 3000}  # 8.44 MSE
+best_config = None
 if best_config is None:
-    best_config = hp_sweep('ridge', X_train, y_train, X_test, y_test)
+    best_config, best_train_val_error = hp_sweep('ridge', X_train, y_train, X_test, y_test)
 model = init_model(best_config)
 model.fit(X_train, y_train)
 
-for smoothing_window_size in [139]:
+for smoothing_window_size in [1]:
     print(smoothing_window_size)
 
     y_train_pred = model.predict(X_train)
@@ -71,13 +85,20 @@ for smoothing_window_size in [139]:
 
     y_train_pred_smoothed = smooth_signal(y_train_pred, smoothing_window_size)
     print('Simple Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
+    plt.plot(y_train,label='Actual')
+    plt.plot(y_train_pred, label='Predicted')
+    plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
+    plt.show()
 
     y_test_pred = model.predict(X_test)
     print('Simple Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 
     y_test_pred_smoothed = smooth_signal(y_test_pred, smoothing_window_size)
     print('Simple Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
-
+    plt.plot(y_test,label='Actual')
+    plt.plot(y_test_pred, label='Predicted')
+    plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+    plt.show()
 
 # Set Up Neural Network Model
 print('Keras model training optimized for ' + using + '.')
@@ -89,11 +110,11 @@ l2_reg = 0.0
 dropout_W = 0.5
 dropout_U = 0.5
 bn = True
-nb_epochs = 500
+nb_epochs = 100
 batch_size = 10
 go_backwards = True
 validation_split = 0.05
-patience = 20
+patience = 10
 
 rnn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
 rnn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
@@ -130,7 +151,7 @@ print('Training Time: %.2f' % (time.time()-t))
 # Test Neural Network Model
 print(rnn_config_str)
 
-for smoothing_window_size in [1, 3, 5, 9, 19, 39, 59, 79, 99, 119, 139, 159, 179, 199, 219, 239, 259, 279, 299]:
+for smoothing_window_size in [19, 59, 99, 139, 159, 179, 199, 219, 259]:
     print(smoothing_window_size)
 
     y_train_pred = model.predict(X_train)
@@ -144,3 +165,13 @@ for smoothing_window_size in [1, 3, 5, 9, 19, 39, 59, 79, 99, 119, 139, 159, 179
 
     y_test_pred_smoothed = smooth_signal(y_test_pred, smoothing_window_size)
     print('Complex Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
+
+    plt.plot(y_train,label='Actual Train')
+    plt.plot(y_train_pred, label='Predicted')
+    plt.plot(y_train_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
+    plt.show()
+
+    plt.plot(y_test,label='Actual Train')
+    plt.plot(y_test_pred, label='Predicted')
+    plt.plot(y_test_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
+    plt.show()

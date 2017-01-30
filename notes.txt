@@ -168,11 +168,13 @@ TODO:
 - Try other feature extraction network
 - Fix non-vector generating feature extraction for non-resnet50 models
 - Plot actual speed and predicted speed
+- Check results with split_fraction = 0.8 and 0.9
 
 
 Credit:
 - Keras Documentation
 - Sklearn Documentation
+
 
 1.4s/image for feature extraction via InceptionV3 on GPU
 - Start Time: 12:05:00AM
