@@ -1,6 +1,7 @@
 import json
 from keras.models import Sequential
 from keras.layers import Dense, GRU, LSTM, SimpleRNN
+from keras.layers.core import Reshape
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l1l2
 import numpy as np
@@ -68,13 +69,11 @@ go_backwards = False  # Whether or not to predict using data from both direction
 l1_reg = 1.0
 l2_reg = 1.0
 model = Sequential()
-model.add(GRU(200, unroll=True, consume_less=using,
-    input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
-    W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
-    b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=0.5, dropout_U=0.5))
-
-# model.add(BatchNormalization())
-# model.add(Dense(100, activation='relu'))
+model.add(GRU(100, input_dim=X_train.shape[-1], input_length=1))
+# model.add(GRU(200, unroll=True, consume_less=using,
+#     input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+#     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+#     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=0.5, dropout_U=0.5))
 # model.add(BatchNormalization())
 # model.add(Dense(10, activation='relu'))
 # model.add(BatchNormalization())

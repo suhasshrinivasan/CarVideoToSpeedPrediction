@@ -2,6 +2,8 @@ from keras.applications.resnet50 import ResNet50
 from keras.applications.resnet50 import preprocess_input as resnet50_preprocess_input
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.inception_v3 import preprocess_input as inceptionv3_preprocess_input
+from keras.applications.xception import Xception
+from keras.applications.xception import preprocess_input as xception_preprocess_input
 from keras.preprocessing import image
 import numpy as np
 import os
@@ -24,14 +26,18 @@ def extract_features(data_filepath, num_frames, model_type='resnet50', override_
         return
 
     print('Extracting Features using pre-trained ' + model_type + ' network')
-    target_size = (224, 224)
     if model_type == 'inceptionv3':
         model = InceptionV3(weights='imagenet', include_top=False)
         preprocess_input = inceptionv3_preprocess_input
         target_size = (299, 299)
+    elif model_type == 'xception':
+        model = Xception(weights='imagenet', include_top=False)
+        preprocess_input = xception_preprocess_input
+        target_size = (299, 299)
     else:
         model = ResNet50(weights='imagenet', include_top=False)
         preprocess_input = resnet50_preprocess_input
+        target_size = (224, 224)
     print('Target Size: ' + str(target_size))
 
     # Convert JPEG's to PIL Image Instances
