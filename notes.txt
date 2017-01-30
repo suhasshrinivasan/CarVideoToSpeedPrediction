@@ -1,14 +1,9 @@
-Gameplan:
-- (Set up other computer)
-- Save features (tables? npz? pickle? Check how you did it for CIFAR10)
-- Read JSON data in
-- Train Linear SVM/Gradient Boosted/Random Forest/Decision Tree
-- Train RNN
-
 Runtime:
 - Convert mp4 to jpg’s if necessary
 - Extract features from jpgs if necessary
 - Predict over features with saved model
+- Smooth predictions
+  - Moving Average over 139 Frames works well (Ridge Smoothed Test MSE: 4.58)
 
 Approach Ideas:
 - Extract features, train RNN
@@ -53,7 +48,7 @@ RNN MSE Results(l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size,
 /l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=1000/batch_size=100/go_backwards=True/581917
     Complex Model Train MSE: 1.77
     Complex Model Test MSE: 9.57
-***Try removing validation loss (maybe that data makes a big difference)
+-----Changed Train-Val-Test Sizes-----
 /l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=100/go_backwards=False/validation_split0.025026
 Complex Model Train MSE: 0.39
 Complex Model Test MSE: 5.63
@@ -91,7 +86,54 @@ Complex Model Test MSE: 10.34
 Complex Model Train MSE: 2.87
 Complex Model Test MSE: 8.41
 
+Epoch 19/100
+26s - loss: 13.7402 - val_loss: 16.0945
+Training Time: 515.61
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.3/dropout_U=0.3/bn=True/nb_epochs=100/batch_size=10/go_backwards=True/validation_split=0.05/patience=10/974352
+Complex Model Train MSE: 1.82
+Complex Model Test MSE: 13.56
 
+Epoch 41/500
+11s - loss: 18.1312 - val_loss: 11.2606
+Training Time: 481.08
+/l1_reg=0.001/l2_reg=0.001/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/patience=20/589979
+Complex Model Train MSE: 14.91
+Complex Model Test MSE: 18.27
+
+Epoch 47/500
+79s - loss: 22.2891 - val_loss: 31.1936
+Training Time: 4289.57
+/l1_reg=0.01/l2_reg=0.01/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/763160
+Complex Model Train MSE: 5.95
+Complex Model Test MSE: 15.41
+
+Epoch 57/500
+61s - loss: 37.8812 - val_loss: 6.8041
+Training Time: 4866.31
+/l1_reg=0.1/l2_reg=0.1/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/34593
+Complex Model Train MSE: 4.28
+Complex Model Test MSE: 14.18
+
+Epoch 65/500
+32s - loss: 127.1535 - val_loss: 7.7193
+Training Time: 5143.88
+/l1_reg=1.0/l2_reg=1.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/125590
+Complex Model Train MSE: 9.13
+Complex Model Test MSE: 8.17
+
+Epoch 22/500
+7s - loss: 12.9254 - val_loss: 11.2837
+Training Time: 168.16
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/patience=20/699913
+Complex Model Train MSE: 1.47
+Complex Model Test MSE: 6.51
+
+Epoch 205/500
+1s - loss: 1.7934 - val_loss: 16.5516
+Training Time: 270.45
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=100/go_backwards=True/validation_split=0.05/patience=200/622662
+Complex Model Train MSE: 1.03
+Complex Model Test MSE: 10.95
 
 
 Important commands:

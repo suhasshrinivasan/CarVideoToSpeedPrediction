@@ -7,6 +7,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l1l2
 import numpy as np
 import os
+import pandas as pd
 from sklearn.metrics import mean_squared_error
 import random
 import time
@@ -26,8 +27,7 @@ warnings.filterwarnings(action='ignore', module='scipy', message='^internal gels
 # Get feature data
 data_filepath = data_filename_base + '.mp4'
 num_frames = get_video_frames(data_filepath, override_existing=False)
-num_frames = 10
-extract_features(data_filepath, num_frames, model_type='xception', override_existing=False)
+extract_features(data_filepath, num_frames, model_type='resnet50', override_existing=False)
 npz_file = np.load(data_filename_base + '.npz')
 X = npz_file['arr_0']
 
@@ -38,7 +38,7 @@ time_speed_data = np.array(json.loads(time_speed_data))
 
 # Split data
 assert(X.shape[0] == time_speed_data.shape[0])
-split_fraction = 0.9
+split_fraction = 0.8
 num_train = int(X.shape[0] * split_fraction)
 X_train = X[:num_train,:]
 X_test = X[num_train:,:]
@@ -58,11 +58,27 @@ if best_config is None:
 model = init_model(best_config)
 model.fit(X_train, y_train)
 
-y_train_pred = model.predict(X_train)
-print('Simple Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
+for smoothing_window_size in [139]:
+    print(smoothing_window_size)
 
-y_test_pred = model.predict(X_test)
-print('Simple Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+    y_train_pred = model.predict(X_train)
+    print('Simple Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
+
+    y_train_pred_smoothed = pd.rolling_mean(
+        y_train_pred, smoothing_window_size, min_periods=1, center=True)
+    missing_idxs = np.isnan(y_train_pred_smoothed)
+    y_train_pred_smoothed[missing_idxs] = y_train_pred[missing_idxs]
+    print('Simple Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
+
+    y_test_pred = model.predict(X_test)
+    print('Simple Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+
+    y_test_pred_smoothed = pd.rolling_mean(
+        y_test_pred, smoothing_window_size, min_periods=1, center=True)
+    missing_idxs = np.isnan(y_test_pred_smoothed)
+    y_test_pred_smoothed[missing_idxs] = y_test_pred[missing_idxs]
+    print('Simple Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
+
 
 # Set Up Neural Network Model
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
@@ -70,14 +86,14 @@ X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
 l1_reg = 0.0
 l2_reg = 0.0
-dropout_W = 0.3
-dropout_U = 0.3
+dropout_W = 0.5
+dropout_U = 0.5
 bn = True
 nb_epochs = 100
 batch_size = 10
 go_backwards = True
 validation_split = 0.05
-patience = 10
+patience = 3
 
 rnn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
 rnn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
@@ -112,8 +128,24 @@ print('Training Time: %.2f' % (time.time()-t))
 
 # Test Neural Network Model
 print(rnn_config_str)
-y_train_pred = model.predict(X_train)
-print('Complex Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
 
-y_test_pred = model.predict(X_test)
-print('Complex Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+for smoothing_window_size in [1, 3, 5, 9, 19, 39, 59, 79, 99, 119, 139, 159, 179, 199, 219, 239, 259, 279, 299]:
+    print(smoothing_window_size)
+
+    y_train_pred = model.predict(X_train)
+    print('Complex Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
+
+    y_train_pred_smoothed = pd.rolling_mean(
+        y_train_pred, smoothing_window_size, min_periods=1, center=True)
+    missing_idxs = np.isnan(y_train_pred_smoothed)
+    y_train_pred_smoothed[missing_idxs] = y_train_pred[missing_idxs]
+    print('Simple Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
+
+    y_test_pred = model.predict(X_test)
+    print('Complex Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+
+    y_test_pred_smoothed = pd.rolling_mean(
+        y_test_pred, smoothing_window_size, min_periods=1, center=True)
+    missing_idxs = np.isnan(y_test_pred_smoothed)
+    y_test_pred_smoothed[missing_idxs] = y_test_pred[missing_idxs]
+    print('Simple Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
