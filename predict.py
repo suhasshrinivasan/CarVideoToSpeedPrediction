@@ -74,12 +74,13 @@ model.add(GRU(500, return_sequences=False, unroll=True, consume_less='cpu',
 #     go_backwards=go_backwards,
 #     W_regularizer=l1l2(l1=0.01, l2=0.01), U_regularizer=l1l2(l1=0.01, l2=0.01),
 #     b_regularizer=l1l2(l1=0.01, l2=0.01), dropout_W=0.5, dropout_U=0.5))
+
 model.add(BatchNormalization())
 model.add(Dense(100, activation='relu'))
 model.add(BatchNormalization())
-model.add(Dense(10, activation='relu')
+model.add(Dense(10, activation='relu'))
 model.add(BatchNormalization())
-model.add(Dense(1)
+model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 t = time.time()
 model.fit(X_train, y_train, nb_epoch=50, batch_size=300, validation_split=0.1,
