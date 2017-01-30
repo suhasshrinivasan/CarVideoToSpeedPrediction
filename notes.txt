@@ -164,11 +164,8 @@ Other:
 TODO:
 - Fix off-by-one error when reading in frames. Read in last frame properly. Or check labels vector.
 - Fix override_existing for video_to_frames
-- Update Tensorflow (to get Xception working and update pre-trained model weights)
 - Join paths via os.path.join(dir, filename)
 - Try other feature extraction network
-- Fix potential issue of if someone ^C's during execution, to where data is corrupted,
-  but not automatically overriden again
 - Fix non-vector generating feature extraction for non-resnet50 models
 - Plot actual speed and predicted speed
 
