@@ -65,7 +65,7 @@ X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
 go_backwards = True  # Whether or not to predict using data from both directions
 model = Sequential()
-model.add(GRU(500, return_sequences=False, unroll=True, consume_less='cpu',
+model.add(GRU(200, return_sequences=False, unroll=True, consume_less='cpu',
     input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards))
     # W_regularizer=l1l2(l1=0.01, l2=0.01), U_regularizer=l1l2(l1=0.01, l2=0.01),
     # b_regularizer=l1l2(l1=0.01, l2=0.01), dropout_W=0.5, dropout_U=0.5))
@@ -83,9 +83,9 @@ model.add(BatchNormalization())
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 t = time.time()
-model.fit(X_train, y_train, nb_epoch=50, batch_size=300, validation_split=0.1,
+model.fit(X_train, y_train, nb_epoch=500, batch_size=300, validation_split=0.1,
     verbose=2)
-print('Training Time: %.2f' % time.time()-t)
+print('Training Time: %.2f' % (time.time()-t))
 
 y_train_pred = model.predict(X_train)
 print('Complex Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
