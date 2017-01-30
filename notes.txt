@@ -68,3 +68,5 @@ TODO:
 Credit:
 - Keras Documentation
 - Sklearn Documentation
+
+Start Time: 9:45:15
