@@ -1,0 +1,70 @@
+Gameplan:
+- (Set up other computer)
+- Save features (tables? npz? pickle? Check how you did it for CIFAR10)
+- Read JSON data in
+- Train Linear SVM/Gradient Boosted/Random Forest/Decision Tree
+- Train RNN
+
+Runtime:
+- Convert mp4 to jpg’s if necessary
+- Extract features from jpgs if necessary
+- Predict over features with saved model
+
+Approach Ideas:
+- Extract features, train RNN
+
+Visualization Ideas:
+- YOLO: http://pjreddie.com/darknet/yolo/
+
+MSE Results:
+- Mean Prediction: 83.23
+- RFR(n_estimators=4, max_depth=4, max_features=1.0): 21.93 (8.88 Train MSE) (HP Sweep inc)
+- LinearRegression(): 20.53
+- SVR(C=0.1): 17.59 (HP Sweep Incomplete - Long Training Time)
+- GBR(n_estimators=512, max_depth=1): 13.80 (4.84 Train MSE)
+- Lasso(alpha=0.0137): 11.77
+- Ridge(alpha=3000.0): 8.44 (5.44 Train MSE)
+- ElasticNet(alpha=0.215, l1_ratio=0.0, warm_start=True): 8.43
+- GRU (100 hidden, 1 dense, .5 dropout, 100 batch_size): 4.94 (0.70 Train MSE)
+
+
+Important commands:
+- To install cv2: conda install -c https://conda.binstar.org/menpo opencv
+
+Important Links:
+- Keras pre-trained model documentation: https://keras.io/applications/
+- Keras pre-trained model tutorial: http://www.pyimagesearch.com/2016/08/10/imagenet-classification-with-python-and-keras/
+- YOLO Visualizations/Info: http://pjreddie.com/darknet/yolo/
+- Transfer Learning Resources: http://cs231n.github.io/transfer-learning/
+
+Other:
+- Feature Extraction approx speed in s/image on MacBook Pro CPU:
+  - VGG16: 1 (ETA ~2:20hrs) - 7x7x512
+  - VGG19: 1.2 - 7x7x512
+  - ResNet: .6 - 1x1x2048
+  - Xception: ? - ?
+  - InceptionV3: .35 - 5x5x2048
+- Time for whole dataset ResNet Feature Extraction on MachBook Pro CPU
+  - Converting JPEG to PIL: ~2m
+  - Converting PIL to Numpy Array: ~10s
+  - Preprocessing: ~10s
+  - Extracting Features: ~80m
+  - Saving Data: ~10s (823 KB with np.save / ??? KB with np.savez_compressed)
+  - Loading Data: ~10s
+
+
+TODO:
+- Fix off-by-one error when reading in frames. Read in last frame properly. Or check labels vector.
+- Fix override_existing for video_to_frames
+- Update Tensorflow (to get Xception working and update pre-trained model weights)
+- Join paths via os.path.join(dir, filename)
+- Try other feature extraction network
+- Fix potential issue of if someone ^C's during execution, to where data is corrupted,
+  but not automatically overriden again
+- Fix non-vector generating feature extraction for non-resnet50 models
+- Plot actual speed and predicted speed
+
+
+Credit:
+- Keras Documentation
+- Sklearn Documentation
