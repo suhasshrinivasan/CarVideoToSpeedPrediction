@@ -2,8 +2,8 @@ from keras.applications.resnet50 import ResNet50
 from keras.applications.resnet50 import preprocess_input as resnet50_preprocess_input
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.inception_v3 import preprocess_input as inceptionv3_preprocess_input
-from keras.applications.xception import Xception
-from keras.applications.xception import preprocess_input as xception_preprocess_input
+# from keras.applications.xception import Xception
+# from keras.applications.xception import preprocess_input as xception_preprocess_input
 from keras.preprocessing import image
 import numpy as np
 import os

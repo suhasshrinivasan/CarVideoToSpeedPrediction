@@ -28,6 +28,72 @@ MSE Results:
 - GRU (100 hidden, 1 dense, .5 dropout, 100 batch_size): 4.94 (0.70 Train MSE)
 
 
+RNN MSE Results(l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards=True):
+  (0.0, 0.0, 0.0, 0.0, True, 1000, 100)
+    Complex Model Train MSE: 11.18
+    Complex Model Test MSE: 17.89
+  (0.0, 0.0, 0.5, 0.5, False, 1000, 100)
+    Complex Model Train MSE: 2.88
+    Complex Model Test MSE: 13.16
+  (1.0, 1.0, 0.0, 0.0, True, 1000, 100)
+    Complex Model Train MSE: 11.14
+    Complex Model Test MSE: 42.63
+  (1.0, 1.0, 0.5, 0.5, False, 1000, 100)
+    Complex Model Train MSE: 11.52
+    Complex Model Test MSE: 13.64
+  (0.1, 0.1, 0.0, 0.0, True, 1000, 100)
+    Complex Model Train MSE: 6.01
+    Complex Model Test MSE: 53.97
+  /l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=1000/batch_size=100/go_backwards=False/929197
+    Complex Model Train MSE: 3.40
+    Complex Model Test MSE: 14.79
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=1000/batch_size=100/go_backwards=False/650521
+    Complex Model Train MSE: 1.61
+    Complex Model Test MSE: 8.32
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=1000/batch_size=100/go_backwards=True/581917
+    Complex Model Train MSE: 1.77
+    Complex Model Test MSE: 9.57
+***Try removing validation loss (maybe that data makes a big difference)
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=100/go_backwards=False/validation_split0.025026
+Complex Model Train MSE: 0.39
+Complex Model Test MSE: 5.63
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=100/go_backwards=True/validation_split0.0225520
+Complex Model Train MSE: 0.47
+Complex Model Test MSE: 5.42
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=100/go_backwards=False/validation_split0.0653383
+Complex Model Train MSE: 0.74
+Complex Model Test MSE: 5.37
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=10/go_backwards=False/validation_split0.0684101
+Complex Model Train MSE: 0.34
+Complex Model Test MSE: 5.08
+
+Validation Loss added back in:
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=False/nb_epochs=500/batch_size=10/go_backwards=True/validation_split0.05/812113
+Complex Model Train MSE: 1.25
+Complex Model Test MSE: 6.58
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.5/dropout_U=0.5/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/821159
+Complex Model Train MSE: 1.36
+Complex Model Test MSE: 6.30
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.0/dropout_U=0.0/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/998774
+Complex Model Train MSE: 1.84
+Complex Model Test MSE: 13.62
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.9/dropout_U=0.9/bn=False/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/674466
+Complex Model Train MSE: 8.58
+Complex Model Test MSE: 10.34
+
+/l1_reg=0.0/l2_reg=0.0/dropout_W=0.7/dropout_U=0.7/bn=True/nb_epochs=500/batch_size=10/go_backwards=True/validation_split=0.05/605713
+Complex Model Train MSE: 2.87
+Complex Model Test MSE: 8.41
+
+
+
+
 Important commands:
 - To install cv2: conda install -c https://conda.binstar.org/menpo opencv
 
@@ -69,4 +135,5 @@ Credit:
 - Keras Documentation
 - Sklearn Documentation
 
-Start Time: 9:45:15
+1.4s/image for feature extraction via InceptionV3 on GPU
+- Start Time: 12:05:00AM
