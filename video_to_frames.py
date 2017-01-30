@@ -17,12 +17,12 @@ def get_video_frames(data_filepath, override_existing=True):
         print('Getting Frames...')
         os.makedirs(data_frames_dir)
         vidcap = cv2.VideoCapture(data_filepath)
-        success,image = vidcap.read()
+        success, image = vidcap.read()
         count = 0
         success = True
         while success:
-            print count
             success, image = vidcap.read()
+            print count
             cv2.imwrite(data_frames_dir + '/frame%d.jpg' % count, image)  # Save frame as JPEG
             if count % 100 == 0:
                 print('Read frame%d.jpg' % count)
