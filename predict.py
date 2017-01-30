@@ -24,7 +24,8 @@ warnings.filterwarnings(action='ignore', module='scipy', message='^internal gels
 # Get feature data
 data_filepath = data_filename_base + '.mp4'
 num_frames = get_video_frames(data_filepath, override_existing=False)
-extract_features(data_filepath, num_frames, model_type='resnet50', override_existing=False)
+num_frames = 10
+extract_features(data_filepath, num_frames, model_type='xception', override_existing=False)
 npz_file = np.load(data_filename_base + '.npz')
 X = npz_file['arr_0']
 
