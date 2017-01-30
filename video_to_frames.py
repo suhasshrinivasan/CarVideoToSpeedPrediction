@@ -21,6 +21,7 @@ def get_video_frames(data_filepath, override_existing=True):
         count = 0
         success = True
         while success:
+            print count
             success, image = vidcap.read()
             cv2.imwrite(data_frames_dir + '/frame%d.jpg' % count, image)  # Save frame as JPEG
             if count % 100 == 0:
