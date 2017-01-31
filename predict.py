@@ -2,7 +2,7 @@ import json
 from keras.callbacks import EarlyStopping, TensorBoard
 from keras.models import Sequential
 from keras.layers import Dense, GRU, LSTM, SimpleRNN
-from keras.layers.core import Reshape
+from keras.layers.core import Reshape, Dropout
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l1l2
 import matplotlib
@@ -23,6 +23,8 @@ from smooth_signal import ma_smoothing, ewma_smoothing
 matplotlib.use('qt5agg')
 import matplotlib.pyplot as plt
 smooth_signal = ma_smoothing
+
+show_simple_model_plots = False
 using = 'cpu'
 if len(sys.argv) == 2:
     if sys.argv[1] == '-g' or sys.argv[1] == '--gpu-optimized':
@@ -46,24 +48,29 @@ time_speed_data = np.array(json.loads(time_speed_data))
 
 # Split data
 assert(X.shape[0] == time_speed_data.shape[0])
+test_data_location = 'end'
 split_fraction = 0.9
 num_train = int(X.shape[0] * split_fraction)
 num_test = X.shape[0] - num_train
-X_train = X[:num_train,:]
-X_test = X[num_train:,:]
-# X_train = X[num_test:,:]
-# X_test = X[:num_test,:]
-time_speed_data_train = time_speed_data[:num_train,:]
-time_speed_data_test = time_speed_data[num_train:,:]
-# time_speed_data_train = time_speed_data[num_test:,:]
-# time_speed_data_test = time_speed_data[:num_test,:]
+
+if test_data_location == 'end':
+    X_train = X[:num_train,:]
+    X_test = X[num_train:,:]
+    time_speed_data_train = time_speed_data[:num_train,:]
+    time_speed_data_test = time_speed_data[num_train:,:]
+else:
+    X_train = X[num_test:,:]
+    X_test = X[:num_test,:]
+    time_speed_data_train = time_speed_data[num_test:,:]
+    time_speed_data_test = time_speed_data[:num_test,:]
+
 time_train = time_speed_data_train[:,0].reshape(-1,1)
 y_train = time_speed_data_train[:,1].reshape(-1,1)
 time_test = time_speed_data_test[:,0].reshape(-1,1)
 y_test = time_speed_data_test[:,1].reshape(-1,1)
 
 # Additional preprocessing: row-wise differences
-data_smoothing_window_size = 135
+data_smoothing_window_size = 49
 X_train = ma_smoothing(X_train, data_smoothing_window_size)
 X_test = ma_smoothing(X_test, data_smoothing_window_size)
 print('Data processed.')
@@ -71,7 +78,8 @@ print('Data processed.')
 ### Predict
 # Simple Model
 # best_config = {'model_type': 'ridge', 'alpha': 3000}  # 8.44 MSE
-best_config = None
+best_config = {'model_type': 'ridge', 'alpha': 400.0}  # 8.44 MSE
+# best_config = None
 if best_config is None:
     best_config, best_train_val_error = hp_sweep('ridge', X_train, y_train, X_test, y_test)
 model = init_model(best_config)
@@ -85,25 +93,27 @@ for smoothing_window_size in [1]:
 
     y_train_pred_smoothed = smooth_signal(y_train_pred, smoothing_window_size)
     print('Simple Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
-    plt.plot(y_train,label='Actual')
-    plt.plot(y_train_pred, label='Predicted')
-    plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
-    plt.show()
+    if show_simple_model_plots:
+        plt.plot(y_train,label='Actual')
+        plt.plot(y_train_pred, label='Predicted')
+        plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
+        plt.show()
 
     y_test_pred = model.predict(X_test)
     print('Simple Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 
     y_test_pred_smoothed = smooth_signal(y_test_pred, smoothing_window_size)
     print('Simple Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
-    plt.plot(y_test,label='Actual')
-    plt.plot(y_test_pred, label='Predicted')
-    plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
-    plt.show()
+    if show_simple_model_plots:
+        plt.plot(y_test,label='Actual')
+        plt.plot(y_test_pred, label='Predicted')
+        plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+        plt.show()
 
 # Set Up Neural Network Model
 print('Keras model training optimized for ' + using + '.')
-X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
-X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
+# X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
+# X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
 l1_reg = 0.0
 l2_reg = 0.0
@@ -131,14 +141,32 @@ print(rnn_config_str)
 
 # Compile and Train Neural Network Model
 model = Sequential()
-model.add(GRU(100, unroll=True, consume_less=using,
-    input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
-    W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
-    b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
+# model.add(GRU(100, unroll=True, consume_less=using,
+#     input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+#     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+#     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
+model.add(Dense(
+    100,
+    activation='relu',
+    W_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+    b_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+    input_dim=X_train.shape[-1],
+))
+if dropout_U > 0:
+    model.add(Dropout(dropout_U))
 if bn:
     model.add(BatchNormalization())
-# model.add(Dense(10, activation='relu'))
-# model.add(BatchNormalization())
+# model.add(Dense(
+#     10,
+#     activation='relu',
+#     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+#     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+#     input_dim=(X_train.shape[-1], 1),
+# ))
+if dropout_U > 0:
+    model.add(Dropout(dropout_U))
+if bn:
+    model.add(BatchNormalization())
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 
@@ -151,7 +179,7 @@ print('Training Time: %.2f' % (time.time()-t))
 # Test Neural Network Model
 print(rnn_config_str)
 
-for smoothing_window_size in [19, 59, 99, 139, 159, 179, 199, 219, 259]:
+for smoothing_window_size in [1, 19, 59, 99, 139, 159, 179, 199, 219, 259]:
     print(smoothing_window_size)
 
     y_train_pred = model.predict(X_train)
