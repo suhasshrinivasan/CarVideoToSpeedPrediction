@@ -1,4 +1,4 @@
-echo "Starting to generate cool visualizations!""
+echo "Starting to generate cool visualizations!"
 mkdir visualization
 ./darknet detector test cfg/coco.data cfg/yolo.cfg yolo.weights drive/frame0.jpg
 mv predictions.jpg visualization/frame0.jpg
