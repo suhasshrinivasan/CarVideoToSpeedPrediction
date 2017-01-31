@@ -53,8 +53,8 @@ def init_configs(model_type):
         for C in np.logspace(-5, 4, 10):
             configs.append({'model_type': model_type, 'C': C})
     elif model_type == 'gbr':  # Gradient Boosting Regressor
-        for n_estimators in [128, 512, 2048]:
-            for max_depth in [1, 3, 6, 10]:
+        for n_estimators in [128]:
+            for max_depth in [1, 3, 6]:
                 configs.append({'model_type': model_type, 'n_estimators': n_estimators,
                     'max_depth': max_depth})
     elif model_type == 'rfr':  # Random Forest Regressor

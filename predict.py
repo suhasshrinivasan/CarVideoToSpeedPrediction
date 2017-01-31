@@ -24,7 +24,7 @@ matplotlib.use('qt5agg')
 import matplotlib.pyplot as plt
 smooth_signal = ma_smoothing
 
-show_simple_model_plots = False
+show_simple_model_plots = True
 using = 'cpu'
 if len(sys.argv) == 2:
     if sys.argv[1] == '-g' or sys.argv[1] == '--gpu-optimized':
@@ -70,7 +70,7 @@ time_test = time_speed_data_test[:,0].reshape(-1,1)
 y_test = time_speed_data_test[:,1].reshape(-1,1)
 
 # Additional preprocessing: row-wise differences
-data_smoothing_window_size = 49
+data_smoothing_window_size = 9
 X_train = ma_smoothing(X_train, data_smoothing_window_size)
 X_test = ma_smoothing(X_test, data_smoothing_window_size)
 print('Data processed.')
@@ -78,14 +78,14 @@ print('Data processed.')
 ### Predict
 # Simple Model
 # best_config = {'model_type': 'ridge', 'alpha': 3000}  # 8.44 MSE
-best_config = {'model_type': 'ridge', 'alpha': 400.0}  # 8.44 MSE
-# best_config = None
+# best_config = {'model_type': 'ridge', 'alpha': 400.0}  # 8.44 MSE
+best_config = None
 if best_config is None:
-    best_config, best_train_val_error = hp_sweep('ridge', X_train, y_train, X_test, y_test)
+    best_config, best_train_val_error = hp_sweep('gbr', X_train, y_train, X_test, y_test)
 model = init_model(best_config)
 model.fit(X_train, y_train)
 
-for smoothing_window_size in [1]:
+for smoothing_window_size in [1, 5, 9, 19, 39, 79, 119, 159]:
     print(smoothing_window_size)
 
     y_train_pred = model.predict(X_train)
@@ -120,17 +120,19 @@ l2_reg = 0.0
 dropout_W = 0.5
 dropout_U = 0.5
 bn = True
-nb_epochs = 100
+nb_epochs = 200
 batch_size = 10
 go_backwards = True
 validation_split = 0.05
-patience = 10
+patience = 20
+num_dense_hidden_units = 60
 
 rnn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
 rnn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
     + '/dropout_U=' + str(dropout_U) + '/bn=' + str(bn) + '/nb_epochs=' + str(nb_epochs)\
     + '/batch_size=' + str(batch_size) + '/go_backwards=' + str(go_backwards)\
-    + '/validation_split=' + str(validation_split) + '/patience=' + str(patience) + '/'\
+    + '/validation_split=' + str(validation_split) + '/patience=' + str(patience)\
+    + '/num_dense_hidden_units=' + str(num_dense_hidden_units) + '/'\
     + str(random.randint(1, 1000000))
 callbacks = [
     EarlyStopping(monitor='val_loss', patience=patience, verbose=0, mode='auto'),
@@ -146,7 +148,7 @@ model = Sequential()
 #     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
 #     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
 model.add(Dense(
-    100,
+    num_dense_hidden_units,
     activation='relu',
     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
@@ -163,17 +165,16 @@ if bn:
 #     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
 #     input_dim=(X_train.shape[-1], 1),
 # ))
-if dropout_U > 0:
-    model.add(Dropout(dropout_U))
-if bn:
-    model.add(BatchNormalization())
+# if dropout_U > 0:
+#     model.add(Dropout(dropout_U))
+# if bn:
+#     model.add(BatchNormalization())
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 
 t = time.time()
 hist = model.fit(X_train, y_train, nb_epoch=nb_epochs, batch_size=batch_size,
     validation_split=validation_split, verbose=2, callbacks=callbacks)
-print(hist.history)
 print('Training Time: %.2f' % (time.time()-t))
 
 # Test Neural Network Model

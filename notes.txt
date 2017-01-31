@@ -179,3 +179,4 @@ Credit:
 1.4s/image for feature extraction via InceptionV3 on GPU
 
 ffmpeg -i frame%d.png -f mp4 -vcodec libx264 -pix_fmt yuv420p test.mp4
+ffmpeg -pix_fmt yuv420p -framerate 24 -i frame%d.png -f mp4 -vcodec h264 test.mp4
