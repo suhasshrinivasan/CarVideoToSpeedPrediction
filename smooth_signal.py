@@ -21,9 +21,8 @@ def ewma_smoothing(y_pred):
     Credit: http://connor-johnson.com/2014/02/01/smoothing-with-exponentially-weighted-moving-averages/
     """
     ewma = pd.stats.moments.ewma
-    # Take EWMA in both directions with a smaller span term
-    fwd = ewma( x, span=15 ) # take EWMA in fwd direction
-    bwd = ewma( x[::-1], span=15 ) # take EWMA in bwd direction
-    c = np.vstack(( fwd, bwd[::-1] )) # lump fwd and bwd together
-    c = np.mean( c, axis=0 ) # average
-    return y_pred
+    fwd = ewma(y_pred, span=15)  # Take EWMA in fwd direction
+    bwd = ewma(y_pred[::-1], span=15)  # Take EWMA in bwd direction
+    smoothed = np.vstack((fwd, bwd[::-1]))  # Lump fwd and bwd together
+    smoothed = np.mean(smoothed, axis=0)  # Average
+    return smoothed

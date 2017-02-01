@@ -10,7 +10,7 @@ import os
 
 from video_to_frames import get_video_frames
 
-def extract_features(data_filepath, num_frames, model_type='resnet50', override_existing=True):
+def extract_features(data_filepath, num_frames, extraction_network='resnet50', override_existing=True):
     """
     Given the original data filepath and the number of frames in that data,
     this function extracts key image features using ImageNet pre-trained network,
@@ -19,18 +19,18 @@ def extract_features(data_filepath, num_frames, model_type='resnet50', override_
 
     Credit: https://keras.io/applications/
     """
-    model_type = str.lower(model_type)
+    extraction_network = str.lower(extraction_network)
     features_filepath = data_filepath[:-4] + '.npz'
     if os.path.exists(features_filepath) and not override_existing:
         print('Frames converted to extracted features already.')
         return
 
-    print('Extracting Features using pre-trained ' + model_type + ' network')
-    if model_type == 'inceptionv3':
+    print('Extracting Features using pre-trained ' + extraction_network + ' network')
+    if extraction_network == 'inceptionv3':
         model = InceptionV3(weights='imagenet', include_top=False)
         preprocess_input = inceptionv3_preprocess_input
         target_size = (299, 299)
-    elif model_type == 'xception':
+    elif extraction_network == 'xception':
         model = Xception(weights='imagenet', include_top=False)
         preprocess_input = xception_preprocess_input
         target_size = (299, 299)
@@ -58,9 +58,9 @@ def extract_features(data_filepath, num_frames, model_type='resnet50', override_
     print('- Preprocessing Data...')
     x = preprocess_input(x)
 
-    print('- Running Network...')
+    print('- Running Network... (This might take up to several hours)')
     features = model.predict(x)
-    if model_type == 'resnet50':
+    if extraction_network == 'resnet50':
         features = features.reshape(features.shape[0], -1)  # Flatten feature vector per frame
 
     print('- Saving Features...')

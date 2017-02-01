@@ -5,15 +5,9 @@ Runtime:
 - Smooth predictions
   - Moving Average over 139 Frames works well (Ridge Smoothed Test MSE: 4.58)
 
-Approach Ideas:
-- Extract features, train RNN
-
-Visualization Ideas:
-- YOLO: http://pjreddie.com/darknet/yolo/
-
 MSE Results:
 - Mean Prediction: 83.23
-- RFR(n_estimators=4, max_depth=4, max_features=1.0): 21.93 (8.88 Train MSE) (HP Sweep inc)
+- RFR(n_estimators=4, max_depth=4, max_features=1.0): 21.93 (8.88 Train MSE) (HP Sweep incomplete)
 - LinearRegression(): 20.53
 - SVR(C=0.1): 17.59 (HP Sweep Incomplete - Long Training Time)
 - GBR(n_estimators=512, max_depth=1): 13.80 (4.84 Train MSE)
@@ -21,7 +15,6 @@ MSE Results:
 - Ridge(alpha=3000.0): 8.44 (5.44 Train MSE)
 - ElasticNet(alpha=0.215, l1_ratio=0.0, warm_start=True): 8.43
 - GRU (100 hidden, 1 dense, .5 dropout, 100 batch_size): 4.94 (0.70 Train MSE)
-
 
 RNN MSE Results(l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards=True):
   (0.0, 0.0, 0.0, 0.0, True, 1000, 100)
@@ -174,6 +167,7 @@ TODO:
 Credit:
 - Keras Documentation
 - Sklearn Documentation
+- Joseph Redmon's YOLO Darknet for Visualization Help
 
 
 1.4s/image for feature extraction via InceptionV3 on GPU
