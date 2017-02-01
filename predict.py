@@ -130,8 +130,8 @@ else:  # Neural Network Model
     # X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
     # X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
-    l1_reg = 0.01
-    l2_reg = 0.01
+    l1_reg = 0.0
+    l2_reg = 0.0
     dropout_W = 0.0
     dropout_U = 0.0
     bn = True
@@ -151,8 +151,8 @@ else:  # Neural Network Model
         + str(random.randint(1, 1000000))
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=patience, verbose=0, mode='auto'),
-        TensorBoard(log_dir='./logs' + nn_config_str, histogram_freq=0,
-            write_graph=True, write_images=False),
+        # TensorBoard(log_dir='./logs' + nn_config_str, histogram_freq=0,
+        #     write_graph=True, write_images=False),
     ]
     print(nn_config_str)
 
