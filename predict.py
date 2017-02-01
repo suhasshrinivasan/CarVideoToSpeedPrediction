@@ -45,6 +45,7 @@ data_filepath = data_filename_base + '.mp4'
 num_frames = get_video_frames(data_filepath, override_existing=False)
 extract_features(data_filepath, num_frames, extraction_network='resnet50', override_existing=False)
 npz_file = np.load(data_filename_base + '.npz')
+# npz_file = np.load('data/drive_small.npz')  # TODO: Delete
 X = npz_file['arr_0']
 print(X.shape)
 
@@ -52,7 +53,7 @@ print(X.shape)
 with open (data_filename_base + '.json', 'r') as json_raw_data:
     time_speed_data = json_raw_data.readlines()[0]
 time_speed_data = np.array(json.loads(time_speed_data))
-
+# time_speed_data = time_speed_data[:500,:]  # TODO: Delete!
 # X_max = np.apply_over_axes(np.max, X, (1, 2))
 # X_max = X_max.reshape((X_max.shape[0], X_max.shape[-1]))
 
@@ -129,17 +130,17 @@ else:  # Neural Network Model
     # X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
     # X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
-    l1_reg = 0.0
-    l2_reg = 0.0
+    l1_reg = 0.01
+    l2_reg = 0.01
     dropout_W = 0.0
     dropout_U = 0.0
     bn = True
-    nb_epochs = 10
+    nb_epochs = 100
     batch_size = 100
     go_backwards = True
     validation_split = 0.05
     patience = 10
-    num_hidden_units = 64
+    num_hidden_units = 16
 
     nn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
     nn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
@@ -172,7 +173,8 @@ else:  # Neural Network Model
         num_hidden_units, 4, 4,
         border_mode='valid',
         subsample=(2, 2),
-        input_shape=(8, 8, 2048)
+        input_shape=(8, 8, 2048),
+        W_regularizer=l1l2(l1_reg, l2_reg),
     ))
     if bn:
         model.add(BatchNormalization())
@@ -180,14 +182,15 @@ else:  # Neural Network Model
     model.add(MaxPooling2D(pool_size=(3, 3)))
     if dropout_U > 0:
         model.add(Dropout(dropout_U))
-    print(model.layers[-1].shape)
-    model.add(Reshape(X.shape[0], 1, X.shape[-1]))
-    print(model.layers[-1].shape)
-    model.add(GRU(1, unroll=True, consume_less=using,
-        input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
-        W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
-        b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
-    # model.add(Dense(1))
+    # print(model.layers[-1].output_shape)
+    # model.add(Reshape((None, 1, num_hidden_units), input_shape=(None, 1, 1, 64)))
+    # print(model.layers[-1].output_shape)
+    # model.add(GRU(1, unroll=True, consume_less=using,
+    #     input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+    #     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+    #     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
+    model.add(Flatten())
+    model.add(Dense(1, W_regularizer=l1l2(l1_reg, l2_reg)))
     model.compile(loss='mean_squared_error', optimizer='adam')
 
     t = time.time()
