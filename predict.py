@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 model_type = 'cnn'
 smooth_signal = ma_smoothing
 data_smoothing_window_size = 1
-show_simple_model_plots = True
+show_model_plots = True
 test_data_location = 'end'
 
 using = 'cpu'
@@ -104,11 +104,6 @@ if model_type[-2:] != 'nn':  # Simple Model
         y_train_pred_smoothed = smooth_signal(y_train_pred, smoothing_window_size)
         print(str.upper(model_type) +
             ' Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
-        if show_simple_model_plots:
-            plt.plot(y_train,label='Actual')
-            plt.plot(y_train_pred, label='Predicted')
-            plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
-            plt.show()
 
         y_test_pred = model.predict(X_test)
         print(str.upper(model_type) +
@@ -117,12 +112,17 @@ if model_type[-2:] != 'nn':  # Simple Model
         y_test_pred_smoothed = smooth_signal(y_test_pred, smoothing_window_size)
         print(str.upper(model_type) +
             ' Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
-        if show_simple_model_plots:
+
+        if show_model_plots:
+            plt.plot(y_train,label='Actual')
+            plt.plot(y_train_pred, label='Predicted')
+            plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
+            plt.show()
+
             plt.plot(y_test,label='Actual')
             plt.plot(y_test_pred, label='Predicted')
             plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
             plt.show()
-    pdb.set_trace()
 
 else:  # Neural Network Model
     print('Keras model training optimized for ' + using + '.')
@@ -139,7 +139,7 @@ else:  # Neural Network Model
     go_backwards = True
     validation_split = 0.05
     patience = 10
-    num_dense_hidden_units = 128
+    num_dense_hidden_units = 64
 
     nn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
     nn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
@@ -211,12 +211,13 @@ else:  # Neural Network Model
         print(str.upper(model_type) +
             ' Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
 
-        plt.plot(y_train,label='Actual Train')
-        plt.plot(y_train_pred, label='Predicted')
-        plt.plot(y_train_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
-        plt.show()
+        if show_model_plots:
+            plt.plot(y_train,label='Actual Train')
+            plt.plot(y_train_pred, label='Predicted')
+            plt.plot(y_train_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
+            plt.show()
 
-        plt.plot(y_test,label='Actual Train')
-        plt.plot(y_test_pred, label='Predicted')
-        plt.plot(y_test_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
-        plt.show()
+            plt.plot(y_test,label='Actual Train')
+            plt.plot(y_test_pred, label='Predicted')
+            plt.plot(y_test_pred_smoothed, label='Predicted Smoothed' + str(smoothing_window_size))
+            plt.show()
