@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 model_type = 'cnn'
 smooth_signal = ma_smoothing
 data_smoothing_window_size = 1
-show_model_plots = True
+show_model_plots = False
 test_data_location = 'end'
 
 using = 'cpu'
@@ -139,14 +139,14 @@ else:  # Neural Network Model
     go_backwards = True
     validation_split = 0.05
     patience = 10
-    num_dense_hidden_units = 64
+    num_hidden_units = 64
 
     nn_config = (l1_reg, l2_reg, dropout_W, dropout_U, bn, nb_epochs, batch_size, go_backwards)
     nn_config_str = '/l1_reg=' + str(l1_reg) + '/l2_reg=' + str(l2_reg) + '/dropout_W=' + str(dropout_W)\
         + '/dropout_U=' + str(dropout_U) + '/bn=' + str(bn) + '/nb_epochs=' + str(nb_epochs)\
         + '/batch_size=' + str(batch_size) + '/go_backwards=' + str(go_backwards)\
         + '/validation_split=' + str(validation_split) + '/patience=' + str(patience)\
-        + '/num_dense_hidden_units=' + str(num_dense_hidden_units) + '/'\
+        + '/num_hidden_units=' + str(num_hidden_units) + '/'\
         + str(random.randint(1, 1000000))
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=patience, verbose=0, mode='auto'),
@@ -162,14 +162,14 @@ else:  # Neural Network Model
     #     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
     #     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
     # model.add(Dense(
-    #     num_dense_hidden_units,
+    #     num_hidden_units,
     #     activation='relu',
     #     W_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
     #     b_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
     #     input_dim=X_train.shape[-1],
     # ))
     model.add(Convolution2D(
-        num_dense_hidden_units, 4, 4,
+        num_hidden_units, 4, 4,
         border_mode='valid',
         subsample=(2, 2),
         input_shape=(8, 8, 2048)
@@ -181,7 +181,11 @@ else:  # Neural Network Model
     if dropout_U > 0:
         model.add(Dropout(dropout_U))
     model.add(Flatten())
-    model.add(Dense(1))
+    model.add(GRU(1, unroll=True, consume_less=using,
+        input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
+        W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
+        b_regularizer=l1l2(l1=l1_reg, l2=l2_reg), dropout_W=dropout_W, dropout_U=dropout_U))
+    # model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
 
     t = time.time()
@@ -192,7 +196,7 @@ else:  # Neural Network Model
     # Test Neural Network Model
     print(nn_config_str)
 
-    for smoothing_window_size in [1, 19, 59, 99, 139, 159, 179, 199, 219, 259]:
+    for smoothing_window_size in [1, 49, 99, 149]:
         print(smoothing_window_size)
 
         y_train_pred = model.predict(X_train)
