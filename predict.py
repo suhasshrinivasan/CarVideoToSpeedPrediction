@@ -180,7 +180,9 @@ else:  # Neural Network Model
     model.add(MaxPooling2D(pool_size=(3, 3)))
     if dropout_U > 0:
         model.add(Dropout(dropout_U))
-    model.add(Flatten())
+    print(model.layers[-1].shape)
+    model.add(Reshape(X.shape[0], 1, X.shape[-1]))
+    print(model.layers[-1].shape)
     model.add(GRU(1, unroll=True, consume_less=using,
         input_dim=X_train.shape[-1], input_length=1, go_backwards=go_backwards,
         W_regularizer=l1l2(l1=l1_reg, l2=l2_reg), U_regularizer=l1l2(l1=l1_reg, l2=l2_reg),
