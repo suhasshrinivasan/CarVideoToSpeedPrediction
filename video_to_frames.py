@@ -22,14 +22,14 @@ def get_video_frames(data_filepath, override_existing=True):
         success = True
         while success:
             success, image = vidcap.read()
-            print count
             cv2.imwrite(data_frames_dir + '/frame%d.jpg' % count, image)  # Save frame as JPEG
             if count % 100 == 0:
                 print('Read frame%d.jpg' % count)
             if cv2.waitKey(10) == 27:  # Exit if Escape is hit
                 break
             count += 1
-        print('Data converted to frames.')
+        count -= 1  # Last "converted" fram JPEG is actually empty
+        print('Data converted to ' + str(count) + ' frames.')
 
-    return len(filter(
-        lambda frame: frame[:5] == 'frame' and frame[-4:] == '.jpg', os.listdir(data_frames_dir)))
+    return len(filter(lambda frame:
+        frame[:5] == 'frame' and frame[-4:] == '.jpg', os.listdir(data_frames_dir))) - 1

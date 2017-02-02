@@ -1,0 +1,127 @@
+[  4.839  37.214] {'model_type': 'ridge', 'alpha': 100.0} 160
+[  2.924  35.106] {'model_type': 'ridge', 'alpha': 100.0} 320
+[  1.82   33.598] {'model_type': 'ridge', 'alpha': 100.0} 640
+[  1.159  33.335] {'model_type': 'ridge', 'alpha': 100.0} 1280
+[  0.889  34.827] {'model_type': 'ridge', 'alpha': 100.0} 2048
+[  4.795  36.348] {'model_type': 'ridge', 'alpha': 200.0} 160
+[  2.937  34.961] {'model_type': 'ridge', 'alpha': 200.0} 320
+[  1.819  33.307] {'model_type': 'ridge', 'alpha': 200.0} 640
+[  1.198  33.618] {'model_type': 'ridge', 'alpha': 200.0} 1280
+[  0.979  33.995] {'model_type': 'ridge', 'alpha': 200.0} 2048
+[  4.821  36.353] {'model_type': 'ridge', 'alpha': 400.0} 160
+[  2.928  33.831] {'model_type': 'ridge', 'alpha': 400.0} 320
+[  1.848  33.598] {'model_type': 'ridge', 'alpha': 400.0} 640
+[  1.287  33.177] {'model_type': 'ridge', 'alpha': 400.0} 1280
+[  1.127  33.334] {'model_type': 'ridge', 'alpha': 400.0} 2048
+[  4.822  36.161] {'model_type': 'ridge', 'alpha': 1000.0} 160
+[  2.997  34.231] {'model_type': 'ridge', 'alpha': 1000.0} 320
+[  1.975  33.408] {'model_type': 'ridge', 'alpha': 1000.0} 640
+[  1.551  32.73 ] {'model_type': 'ridge', 'alpha': 1000.0} 1280
+[  1.464  32.802] {'model_type': 'ridge', 'alpha': 1000.0} 2048
+[  4.873  35.976] {'model_type': 'ridge', 'alpha': 2000.0} 160
+[  3.099  33.923] {'model_type': 'ridge', 'alpha': 2000.0} 320
+[  2.233  33.014] {'model_type': 'ridge', 'alpha': 2000.0} 640
+[  1.932  32.532] {'model_type': 'ridge', 'alpha': 2000.0} 1280
+[  1.883  32.613] {'model_type': 'ridge', 'alpha': 2000.0} 2048
+[  4.976  35.641] {'model_type': 'ridge', 'alpha': 4000.0} 160
+[  3.4    33.751] {'model_type': 'ridge', 'alpha': 4000.0} 320
+[  2.726  32.862] {'model_type': 'ridge', 'alpha': 4000.0} 640
+[  2.538  32.458] {'model_type': 'ridge', 'alpha': 4000.0} 1280
+[  2.512  32.484] {'model_type': 'ridge', 'alpha': 4000.0} 2048
+[  5.437  33.686] {'model_type': 'ridge', 'alpha': 10000.0} 160
+[  4.288  32.873] {'model_type': 'ridge', 'alpha': 10000.0} 320
+[  3.901  32.27 ] {'model_type': 'ridge', 'alpha': 10000.0} 640
+[  3.81   32.169] {'model_type': 'ridge', 'alpha': 10000.0} 1280
+[  3.799  32.174] {'model_type': 'ridge', 'alpha': 10000.0} 2048
+[  6.272  32.826] {'model_type': 'ridge', 'alpha': 20000.0} 160
+[  5.501  32.071] {'model_type': 'ridge', 'alpha': 20000.0} 320
+[  5.273  31.862] {'model_type': 'ridge', 'alpha': 20000.0} 640
+[  5.226  31.769] {'model_type': 'ridge', 'alpha': 20000.0} 1280
+[  5.221  31.771] {'model_type': 'ridge', 'alpha': 20000.0} 2048
+[  7.752  31.972] {'model_type': 'ridge', 'alpha': 40000.0} 160
+[  7.283  31.611] {'model_type': 'ridge', 'alpha': 40000.0} 320
+[  7.158  31.47 ] {'model_type': 'ridge', 'alpha': 40000.0} 640
+[  7.134  31.45 ] {'model_type': 'ridge', 'alpha': 40000.0} 1280
+[  7.131  31.454] {'model_type': 'ridge', 'alpha': 40000.0} 2048
+[ 10.997  32.376] {'model_type': 'ridge', 'alpha': 100000.0} 160
+[ 10.776  32.194] {'model_type': 'ridge', 'alpha': 100000.0} 320
+[ 10.724  32.149] {'model_type': 'ridge', 'alpha': 100000.0} 640
+[ 10.714  32.143] {'model_type': 'ridge', 'alpha': 100000.0} 1280
+[ 10.713  32.143] {'model_type': 'ridge', 'alpha': 100000.0} 2048
+[ 14.897  34.737] {'model_type': 'ridge', 'alpha': 200000.0} 160
+[ 14.779  34.611] {'model_type': 'ridge', 'alpha': 200000.0} 320
+[ 14.752  34.598] {'model_type': 'ridge', 'alpha': 200000.0} 640
+[ 14.747  34.596] {'model_type': 'ridge', 'alpha': 200000.0} 1280
+[ 14.747  34.597] {'model_type': 'ridge', 'alpha': 200000.0} 2048
+1
+RIDGE Model Train MSE: 7.35
+/home/krishna/CS/CarVideoToSpeedPrediction/smooth_signal.py:10: FutureWarning: pd.rolling_mean is deprecated for ndarrays and will be removed in a future version
+  y_pred, smoothing_window_size, min_periods=min_periods, center=True)
+RIDGE Model Smoothed Train MSE: 7.35
+(1388, 1)
+RIDGE Model Test MSE: 7.72
+RIDGE Model Smoothed Test MSE: 7.72
+
+[  3.576  35.048] {'model_type': 'ridge', 'alpha': 100.0} 240
+[  2.204  33.793] {'model_type': 'ridge', 'alpha': 100.0} 480
+[  1.407  33.009] {'model_type': 'ridge', 'alpha': 100.0} 960
+[  1.165  33.823] {'model_type': 'ridge', 'alpha': 100.0} 1280
+[  0.993  34.118] {'model_type': 'ridge', 'alpha': 100.0} 1660
+[  3.613  36.193] {'model_type': 'ridge', 'alpha': 200.0} 240
+[  2.207  33.414] {'model_type': 'ridge', 'alpha': 200.0} 480
+[  1.429  33.244] {'model_type': 'ridge', 'alpha': 200.0} 960
+[  1.198  33.405] {'model_type': 'ridge', 'alpha': 200.0} 1280
+[  1.052  33.598] {'model_type': 'ridge', 'alpha': 200.0} 1660
+[  3.602  34.99 ] {'model_type': 'ridge', 'alpha': 400.0} 240
+[  2.227  33.037] {'model_type': 'ridge', 'alpha': 400.0} 480
+[  1.484  32.999] {'model_type': 'ridge', 'alpha': 400.0} 960
+[  1.288  32.645] {'model_type': 'ridge', 'alpha': 400.0} 1280
+[  1.174  33.121] {'model_type': 'ridge', 'alpha': 400.0} 1660
+[  3.63   33.769] {'model_type': 'ridge', 'alpha': 1000.0} 240
+[  2.311  33.21 ] {'model_type': 'ridge', 'alpha': 1000.0} 480
+[  1.683  32.521] {'model_type': 'ridge', 'alpha': 1000.0} 960
+[  1.55   32.589] {'model_type': 'ridge', 'alpha': 1000.0} 1280
+[  1.486  32.711] {'model_type': 'ridge', 'alpha': 1000.0} 1660
+[  3.686  34.991] {'model_type': 'ridge', 'alpha': 2000.0} 240
+[  2.514  33.047] {'model_type': 'ridge', 'alpha': 2000.0} 480
+[  2.016  32.457] {'model_type': 'ridge', 'alpha': 2000.0} 960
+[  1.932  32.479] {'model_type': 'ridge', 'alpha': 2000.0} 1280
+[  1.894  32.567] {'model_type': 'ridge', 'alpha': 2000.0} 1660
+[  3.899  34.078] {'model_type': 'ridge', 'alpha': 4000.0} 240
+[  2.932  32.841] {'model_type': 'ridge', 'alpha': 4000.0} 480
+[  2.588  32.331] {'model_type': 'ridge', 'alpha': 4000.0} 960
+[  2.538  32.463] {'model_type': 'ridge', 'alpha': 4000.0} 1280
+[  2.518  32.461] {'model_type': 'ridge', 'alpha': 4000.0} 1660
+[  4.635  32.779] {'model_type': 'ridge', 'alpha': 10000.0} 240
+[  4.009  32.196] {'model_type': 'ridge', 'alpha': 10000.0} 480
+[  3.832  32.149] {'model_type': 'ridge', 'alpha': 10000.0} 960
+[  3.81   32.144] {'model_type': 'ridge', 'alpha': 10000.0} 1280
+[  3.802  32.165] {'model_type': 'ridge', 'alpha': 10000.0} 1660
+[  5.727  32.026] {'model_type': 'ridge', 'alpha': 20000.0} 240
+[  5.332  31.878] {'model_type': 'ridge', 'alpha': 20000.0} 480
+[  5.238  31.746] {'model_type': 'ridge', 'alpha': 20000.0} 960
+[  5.227  31.772] {'model_type': 'ridge', 'alpha': 20000.0} 1280
+[  5.222  31.767] {'model_type': 'ridge', 'alpha': 20000.0} 1660
+[  7.412  31.753] {'model_type': 'ridge', 'alpha': 40000.0} 240
+[  7.191  31.486] {'model_type': 'ridge', 'alpha': 40000.0} 480
+[  7.139  31.454] {'model_type': 'ridge', 'alpha': 40000.0} 960
+[  7.134  31.457] {'model_type': 'ridge', 'alpha': 40000.0} 1280
+[  7.131  31.452] {'model_type': 'ridge', 'alpha': 40000.0} 1660
+[ 10.837  32.26 ] {'model_type': 'ridge', 'alpha': 100000.0} 240
+[ 10.737  32.15 ] {'model_type': 'ridge', 'alpha': 100000.0} 480
+[ 10.716  32.143] {'model_type': 'ridge', 'alpha': 100000.0} 960
+[ 10.714  32.141] {'model_type': 'ridge', 'alpha': 100000.0} 1280
+[ 10.713  32.142] {'model_type': 'ridge', 'alpha': 100000.0} 1660
+[ 14.809  34.625] {'model_type': 'ridge', 'alpha': 200000.0} 240
+[ 14.759  34.594] {'model_type': 'ridge', 'alpha': 200000.0} 480
+[ 14.749  34.594] {'model_type': 'ridge', 'alpha': 200000.0} 960
+[ 14.747  34.596] {'model_type': 'ridge', 'alpha': 200000.0} 1280
+[ 14.747  34.596] {'model_type': 'ridge', 'alpha': 200000.0} 1660
+1
+RIDGE Model Train MSE: 7.35
+/Users/Ethan/CS/speed_challenge/smooth_signal.py:10: FutureWarning: pd.rolling_mean is deprecated for ndarrays and will be removed in a future version
+  y_pred, smoothing_window_size, min_periods=min_periods, center=True)
+RIDGE Model Smoothed Train MSE: 7.35
+(1388, 1)
+RIDGE Model Test MSE: 7.72
+RIDGE Model Smoothed Test MSE: 7.72

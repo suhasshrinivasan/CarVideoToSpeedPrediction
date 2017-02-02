@@ -62,9 +62,8 @@ def extract_features(data_filepath, num_frames, extraction_network='resnet50', o
 
     print('- Preprocessing Data...')
     x = preprocess_input(x)
-    print('- Running Network... (This might several seconds per frame on CPU)')
+    print('- Running Network... (This takes on the order of 0.5s per frame on CPU)')
     features = model.predict(x)
-    import pdb; pdb.set_trace()
 
     if extraction_network == 'resnet50':
         features = features.reshape(features.shape[0], -1)  # Flatten feature vector per frame
