@@ -36,16 +36,13 @@ print('Extracted Feature Data Shape: ' + str(X.shape))
 
 # Split data
 time_speed_data = time_speed_data[:X.shape[0],:]
-print X.shape, time_speed_data.shape
-assert(X.shape[0] == time_speed_data.shape[0])
-time_test = time_speed_data_test[:,0].reshape(-1,1)
-y_test = time_speed_data_test[:,1].reshape(-1,1)
+time_test = time_speed_data[:,0].reshape(-1,1)
+y_test = time_speed_data[:,1].reshape(-1,1)
 print('Data processed.')
 
 # Load Final Model and Preprocessor
 with open('final_model.pickle', 'rb') as f:
 	model = pickle.load(f)
-
 with open('final_scaler.pickle', 'rb') as f:
 	scaler = pickle.load(f)
 print('Model and Preprocessor Loaded.')
