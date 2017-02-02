@@ -1,14 +1,14 @@
+from keras.applications.vgg16 import VGG16
+from keras.applications.vgg16 import preprocess_input as vgg16_preprocess_input
+from keras.applications.vgg19 import VGG19
+from keras.applications.vgg19 import preprocess_input as vgg19_preprocess_input
 from keras.applications.resnet50 import ResNet50
 from keras.applications.resnet50 import preprocess_input as resnet50_preprocess_input
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.inception_v3 import preprocess_input as inceptionv3_preprocess_input
-# from keras.applications.xception import Xception
-# from keras.applications.xception import preprocess_input as xception_preprocess_input
 from keras.preprocessing import image
 import numpy as np
 import os
-
-from video_to_frames import get_video_frames
 
 def extract_features(data_filepath, num_frames, extraction_network='resnet50', override_existing=True):
     """
@@ -20,24 +20,29 @@ def extract_features(data_filepath, num_frames, extraction_network='resnet50', o
     Credit: https://keras.io/applications/
     """
     extraction_network = str.lower(extraction_network)
-    features_filepath = data_filepath[:-4] + '.npz'
+    features_filepath = data_filepath[:-4] + '_' + extraction_network + '.npz'
     if os.path.exists(features_filepath) and not override_existing:
         print('Frames converted to extracted features already.')
         return
 
     print('Extracting Features using pre-trained ' + extraction_network + ' network')
-    if extraction_network == 'inceptionv3':
+    if extraction_network[:3] == 'vgg' and extraction_network[-2:] == '16':  # 7x7x512
+        model = VGG16(weights='imagenet', include_top=False)
+        preprocess_input = vgg16_preprocess_input
+        target_size = (224, 224)
+    elif extraction_network[:3] == 'vgg' and extraction_network[-2:] == '19':  # 7x7x512
+        model = VGG19(weights='imagenet', include_top=False)
+        preprocess_input = vgg19_preprocess_input
+        target_size = (224, 224)
+    elif extraction_network[:3] == 'inception' and extraction_network[-2:] == 'v3':  # 8x8x2048
         model = InceptionV3(weights='imagenet', include_top=False)
         preprocess_input = inceptionv3_preprocess_input
         target_size = (299, 299)
-    elif extraction_network == 'xception':
-        model = Xception(weights='imagenet', include_top=False)
-        preprocess_input = xception_preprocess_input
-        target_size = (299, 299)
-    else:
+    else:  # 1x1x2048
         model = ResNet50(weights='imagenet', include_top=False)
         preprocess_input = resnet50_preprocess_input
         target_size = (224, 224)
+        extraction_network = 'resnet50'
     print('Target Size: ' + str(target_size))
 
     # Convert JPEG's to PIL Image Instances
@@ -57,9 +62,10 @@ def extract_features(data_filepath, num_frames, extraction_network='resnet50', o
 
     print('- Preprocessing Data...')
     x = preprocess_input(x)
-
-    print('- Running Network... (This might take up to several hours)')
+    print('- Running Network... (This might several seconds per frame on CPU)')
     features = model.predict(x)
+    import pdb; pdb.set_trace()
+
     if extraction_network == 'resnet50':
         features = features.reshape(features.shape[0], -1)  # Flatten feature vector per frame
 

@@ -9,7 +9,9 @@ import matplotlib
 import numpy as np
 import os
 import pdb
+from sklearn.decomposition import PCA
 from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
 import random
 import sys
 import time
@@ -23,29 +25,40 @@ from smooth_signal import ma_smoothing, ewma_smoothing
 matplotlib.use('qt5agg')
 import matplotlib.pyplot as plt
 
-# Initial Setup
-model_type = 'cnn'
+# A Few Important Configurable Variables
+model_type = 'ridge'
+extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
-data_smoothing_window_size = 1
-show_model_plots = False
+smooth_data = ma_smoothing
+smooth_data_window_size = 1  # TODO: Remove this feature?
+scale_data = True
+best_pca_n_components = None  # <= num features, 0 for No PCA, None to Hyperparameter Sweep
+train_fraction = 0.9
+k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
+show_model_plots = True
 test_data_location = 'end'
+# best_config = {'model_type': 'ridge', 'alpha': 3000.0}  # 8.44 MSE
+best_config = None
+print(best_pca_n_components)
 
+# Initial Setup
 using = 'cpu'
-if len(sys.argv) == 2:
-    if sys.argv[1] == '-g' or sys.argv[1] == '--gpu-optimized':
-        using = 'gpu'
+if len(sys.argv) >= 2 and (sys.argv[-1] == '-g' or sys.argv[1] == '--gpu-optimized'):
+    using = 'gpu'
 model_type = str.lower(model_type)
 data_dir = 'data/'
 filename_base = 'drive'
 data_filename_base = os.path.join(data_dir, filename_base)
+features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
+print ('Set to train ' + str.upper(model_type) + ' Model.')
 
 # Get feature data
 data_filepath = data_filename_base + '.mp4'
 num_frames = get_video_frames(data_filepath, override_existing=False)
-extract_features(data_filepath, num_frames, extraction_network='resnet50', override_existing=False)
-npz_file = np.load(data_filename_base + '.npz')
-# npz_file = np.load('data/drive_small.npz')  # TODO: Delete
+num_frames = 3
+extract_features(data_filepath, num_frames, extraction_network=extraction_network, override_existing=False)
+npz_file = np.load(features_filepath)
 X = npz_file['arr_0']
 print(X.shape)
 
@@ -53,13 +66,11 @@ print(X.shape)
 with open (data_filename_base + '.json', 'r') as json_raw_data:
     time_speed_data = json_raw_data.readlines()[0]
 time_speed_data = np.array(json.loads(time_speed_data))
-# time_speed_data = time_speed_data[:500,:]  # TODO: Delete!
 # X_max = np.apply_over_axes(np.max, X, (1, 2))
 # X_max = X_max.reshape((X_max.shape[0], X_max.shape[-1]))
 
 # Split data
 assert(X.shape[0] == time_speed_data.shape[0])
-train_fraction = 0.9
 num_train = int(X.shape[0] * train_fraction)
 num_test = X.shape[0] - num_train
 
@@ -80,22 +91,38 @@ time_test = time_speed_data_test[:,0].reshape(-1,1)
 y_test = time_speed_data_test[:,1].reshape(-1,1)
 
 # Additional preprocessing: row-wise differences
-if data_smoothing_window_size > 1:
-    X_train = ma_smoothing(X_train, data_smoothing_window_size)
-    X_test = ma_smoothing(X_test, data_smoothing_window_size)
+if smooth_data_window_size > 1:
+    X_train = smooth_data(X_train, smooth_data_window_size)
+    X_test = smooth_data(X_test, smooth_data_window_size)
 print('Data processed.')
 
 # Predict off Extracted Features
 if model_type[-2:] != 'nn':  # Simple Model
-    # best_config = {'model_type': 'ridge', 'alpha': 3000.0}  # 8.44 MSE
-    # best_config = {'model_type': 'ridge', 'alpha': 400.0}  # 8.44 MSE
-    best_config = None
     if best_config is None:
-        best_config, best_train_val_error = hp_sweep(model_type, X_train, y_train, X_test, y_test)
+        if best_pca_n_components is None:
+            pca_n_components_list = [64, 128, 256, 512, 1024, 2048]
+        else:
+            pca_n_components_list = [best_pca_n_components]
+        best_config, best_train_val_error = hp_sweep(
+            model_type, X_train, y_train, k_fold, scale_data, pca_n_components_list)
+
+    # Scale Data
+    if scale_data:
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+
+    # PCA on Data
+    if best_pca_n_components != 0:
+        pca = PCA(n_components=best_pca_n_components)
+        X_train = pca.fit_transform(X_train)
+        X_test = pca.transform(X_test)
+
+    # Train Chosen Model
     model = init_model(best_config)
     model.fit(X_train, y_train)
 
-    for smoothing_window_size in [1, 5, 9, 19, 39, 79, 119, 159]:
+    for smoothing_window_size in [1, 5, 9, 19, 39, 79, 119, 159, 199, 239]:
         print(smoothing_window_size)
 
         y_train_pred = model.predict(X_train)
@@ -126,7 +153,7 @@ if model_type[-2:] != 'nn':  # Simple Model
             plt.show()
 
 else:  # Neural Network Model
-    print('Keras model training optimized for ' + using + '.')
+    print('Keras model training optimized for ' + str.upper(using) + '.')
     # X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
     # X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 

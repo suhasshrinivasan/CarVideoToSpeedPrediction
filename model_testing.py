@@ -2,6 +2,9 @@ import numpy as np
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from sklearn.linear_model import ElasticNet, Lasso, Ridge
 from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import KFold
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 
@@ -40,7 +43,7 @@ def init_configs(model_type):
     model_type = str.lower(model_type)
     configs = []
     if model_type == 'ridge':  # Ridge Regression (L2 Penalty)
-        for alpha in np.logspace(-2, 5, 30):
+        for alpha in np.logspace(-2, 5, 16):
             configs.append({'model_type': model_type, 'alpha': alpha})
     elif model_type == 'lasso':  # Lasso Regression (L1 Penalty)
         for alpha in np.logspace(-6, 6, 30):
@@ -76,41 +79,70 @@ def init_configs(model_type):
     return configs
 
 
-def test_config(config, X_train, y_train, X_test, y_test):
+def test_config(config, X, y, k_fold, scale_data, pca_n_components):
     """
-    Tests a model configuration on given sets of training and testing data.
-    Uses Mean Squared Error as accuracy metric.
-    Returns the MSE of using the model on the training data and on the validation data.
+    Cross-Validates model configuration on given data, returning the average MSE.
     """
-    model = init_model(config)
-    model.fit(X_train, y_train)
+    # Cross Validate
+    mse_train = 0.0
+    mse_test = 0.0
+    kf = KFold(n_splits=k_fold)
+    for train, test in kf.split(X):
+        # Set Data
+        X_train = X[train].copy()
+        X_test = X[test].copy()
+        y_train = y[train].copy()
+        y_test = y[test].copy()
 
-    y_pred_train = model.predict(X_train)
-    mse_train = mean_squared_error(y_pred_train, y_train)
+        # Scale Data
+        if scale_data:
+            scaler = StandardScaler()
+            X_train = scaler.fit_transform(X_train)
+            X_test = scaler.transform(X_test)
 
-    y_pred_test = model.predict(X_test)
-    mse_test = mean_squared_error(y_test, y_pred_test)
+        # PCA on Data
+        if pca_n_components != 0 or pca_n_components == X.shape[1]:
+            pca = PCA(n_components=pca_n_components)
+            X_train = pca.fit_transform(X_train)
+            X_test = pca.transform(X_test)
+
+        # Train Model
+        model = init_model(config)
+        model.fit(X_train, y_train)
+
+        # Test Model
+        y_pred_train = model.predict(X_train)
+        mse_train += mean_squared_error(y_pred_train, y_train)
+        y_pred_test = model.predict(X_test)
+        mse_test += mean_squared_error(y_test, y_pred_test)
+
+    mse_train /= k_fold
+    mse_test /= k_fold
     return np.array([mse_train, mse_test])
 
 
-def hp_sweep(model_type, X_train, y_train, X_val, y_val):
+def hp_sweep(model_type, X, y, k_fold, scale_data, pca_n_components_list):
     """
     Sweeps over the hyperparameter space specified in init_configs for a given model type,
-    Training models on the given training data and validating on the given validation data
+    Cross-Validating each model type on the data.
     Check init_configs for valid model_type strings.
     Returns the best configuration and its training accuracy and validation accuracy.
     """
     # Initialize Configs and Variables
     configs = init_configs(model_type)
     best_config = {}
-    best_train_val_error = np.array([np.inf, np.inf])
+    best_cv_error = np.array([np.inf, np.inf])
 
     # Sweep Hyperparameter Space
     for config in configs:
-        train_val_error = test_config(config, X_train, y_train, X_val, y_val)
-        print train_val_error.round(3), config
-        if train_val_error[1] < best_train_val_error[1]:
-            best_train_val_error = train_val_error
-            best_config = config.copy()
+        for pca_n_components in pca_n_components_list:
+            cv_error = test_config(
+                config, X, y, k_fold,
+                scale_data, pca_n_components
+            )
+            print cv_error.round(3), config, pca_n_components
+            if cv_error[1] < best_cv_error[1]:
+                best_cv_error = cv_error
+                best_config = config.copy()
 
-    return best_config, best_train_val_error
+    return best_config, best_cv_error

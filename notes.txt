@@ -128,6 +128,14 @@ Training Time: 270.45
 Complex Model Train MSE: 1.03
 Complex Model Test MSE: 10.95
 
+*****RIDGE Model*****
+119
+RIDGE Model Train MSE: 5.56
+RIDGE Model Smoothed Train MSE: 3.76
+RIDGE Model Test MSE: 7.78
+RIDGE Model Smoothed Test MSE: 3.81
+PCA: 512
+
 
 Important commands:
 - To install cv2: conda install -c https://conda.binstar.org/menpo opencv
