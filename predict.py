@@ -32,13 +32,13 @@ smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1  # TODO: Remove this feature?
 scale_data = True
-best_pca_n_components = None  # <= num features, 0 for No PCA, None to Hyperparameter Sweep
-train_fraction = 0.9
+best_pca_n_components = 0  # <= num features, 0 for No PCA, None to Hyperparameter Sweep
+train_fraction = 0.839  # Split chosen based on ratio of highway to city driving in data
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 show_model_plots = True
 test_data_location = 'end'
-# best_config = {'model_type': 'ridge', 'alpha': 3000.0}  # 8.44 MSE
-best_config = None
+# best_config = None
+best_config = {'model_type': 'ridge', 'alpha': 4000.0}  # 8.44 MSE
 print(best_pca_n_components)
 
 # Initial Setup
@@ -100,7 +100,8 @@ print('Data processed.')
 if model_type[-2:] != 'nn':  # Simple Model
     if best_config is None:
         if best_pca_n_components is None:
-            pca_n_components_list = [64, 128, 256, 512, 1024, 2048]
+            pca_n_components_list = [160, 320, 640, 1280, 2048]
+            # pca_n_components_list = [240, 480, 960, 1280, 1660]
         else:
             pca_n_components_list = [best_pca_n_components]
         best_config, best_train_val_error = hp_sweep(
@@ -134,6 +135,11 @@ if model_type[-2:] != 'nn':  # Simple Model
             ' Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
 
         y_test_pred = model.predict(X_test)
+        print(y_test_pred.shape)
+        # y_test = y_test[-862:]
+        # y_test_pred = y_test_pred[-862:]
+        # y_test = y_test[:862]
+        # y_test_pred = y_test_pred[:862]
         print(str.upper(model_type) +
             ' Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 

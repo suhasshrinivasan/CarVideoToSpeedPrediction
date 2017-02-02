@@ -1,0 +1,337 @@
+[  8.537  25.714] {'model_type': 'ridge', 'alpha': 0.01} 64
+[  5.799  25.85 ] {'model_type': 'ridge', 'alpha': 0.01} 128
+[  3.622  24.106] {'model_type': 'ridge', 'alpha': 0.01} 256
+[  2.25  23.77] {'model_type': 'ridge', 'alpha': 0.01} 512
+[  1.444  24.669] {'model_type': 'ridge', 'alpha': 0.01} 1024
+[  0.868  26.053] {'model_type': 'ridge', 'alpha': 0.01} 2048
+[  8.476  25.676] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 64
+[  5.771  25.556] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 128
+[  3.607  24.333] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 256
+[  2.255  24.049] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 512
+[  1.444  24.903] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 1024
+[  0.868  26.052] {'model_type': 'ridge', 'alpha': 0.029286445646252372} 2048
+[  8.503  25.287] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 64
+[  5.747  25.658] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 128
+[  3.636  24.298] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 256
+[  2.257  23.586] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 512
+[  1.441  24.494] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 1024
+[  0.868  26.05 ] {'model_type': 'ridge', 'alpha': 0.085769589859089418} 2048
+[  8.527  25.919] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 64
+[  5.745  25.676] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 128
+[  3.584  23.689] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 256
+[  2.25   23.673] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 512
+[  1.444  24.88 ] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 1024
+[  0.868  26.044] {'model_type': 'ridge', 'alpha': 0.25118864315095796} 2048
+[  8.497  25.901] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 64
+[  5.743  25.669] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 128
+[  3.611  24.293] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 256
+[  2.249  24.376] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 512
+[  1.443  24.453] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 1024
+[  0.868  26.028] {'model_type': 'ridge', 'alpha': 0.73564225445964138} 2048
+[  8.505  25.653] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 64
+[  5.787  25.195] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 128
+[  3.606  24.29 ] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 256
+[  2.24   23.247] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 512
+[  1.446  24.348] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 1024
+[  0.868  25.981] {'model_type': 'ridge', 'alpha': 2.1544346900318843} 2048
+[  8.537  25.714] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 64
+[  5.759  25.715] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 128
+[  3.606  24.142] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 256
+[  2.25   23.519] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 512
+[  1.446  24.642] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 1024
+[  0.869  25.854] {'model_type': 'ridge', 'alpha': 6.3095734448019298} 2048
+[  8.512  25.563] {'model_type': 'ridge', 'alpha': 18.478497974222908} 64
+[  5.77   25.671] {'model_type': 'ridge', 'alpha': 18.478497974222908} 128
+[  3.634  24.515] {'model_type': 'ridge', 'alpha': 18.478497974222908} 256
+[  2.257  24.05 ] {'model_type': 'ridge', 'alpha': 18.478497974222908} 512
+[  1.44   24.795] {'model_type': 'ridge', 'alpha': 18.478497974222908} 1024
+[  0.876  25.554] {'model_type': 'ridge', 'alpha': 18.478497974222908} 2048
+[  8.499  25.713] {'model_type': 'ridge', 'alpha': 54.116952654646376} 64
+[  5.735  25.978] {'model_type': 'ridge', 'alpha': 54.116952654646376} 128
+[  3.656  23.594] {'model_type': 'ridge', 'alpha': 54.116952654646376} 256
+[  2.246  23.316] {'model_type': 'ridge', 'alpha': 54.116952654646376} 512
+[  1.448  25.053] {'model_type': 'ridge', 'alpha': 54.116952654646376} 1024
+[  0.907  24.994] {'model_type': 'ridge', 'alpha': 54.116952654646376} 2048
+[  8.511  25.505] {'model_type': 'ridge', 'alpha': 158.48931924611142} 64
+[  5.797  25.117] {'model_type': 'ridge', 'alpha': 158.48931924611142} 128
+[  3.607  23.654] {'model_type': 'ridge', 'alpha': 158.48931924611142} 256
+[  2.27   23.815] {'model_type': 'ridge', 'alpha': 158.48931924611142} 512
+[  1.465  24.407] {'model_type': 'ridge', 'alpha': 158.48931924611142} 1024
+[  1.001  24.231] {'model_type': 'ridge', 'alpha': 158.48931924611142} 2048
+[  8.499  25.692] {'model_type': 'ridge', 'alpha': 464.15888336127819} 64
+[  5.75   25.167] {'model_type': 'ridge', 'alpha': 464.15888336127819} 128
+[  3.629  24.16 ] {'model_type': 'ridge', 'alpha': 464.15888336127819} 256
+[  2.278  23.073] {'model_type': 'ridge', 'alpha': 464.15888336127819} 512
+[  1.546  23.891] {'model_type': 'ridge', 'alpha': 464.15888336127819} 1024
+[  1.223  23.469] {'model_type': 'ridge', 'alpha': 464.15888336127819} 2048
+[  8.528  25.594] {'model_type': 'ridge', 'alpha': 1359.356390878527} 64
+[  5.785  25.201] {'model_type': 'ridge', 'alpha': 1359.356390878527} 128
+[  3.69   23.725] {'model_type': 'ridge', 'alpha': 1359.356390878527} 256
+[  2.41   23.427] {'model_type': 'ridge', 'alpha': 1359.356390878527} 512
+[  1.849  22.943] {'model_type': 'ridge', 'alpha': 1359.356390878527} 1024
+[  1.676  22.883] {'model_type': 'ridge', 'alpha': 1359.356390878527} 2048
+[  8.537  25.152] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 64
+[  5.834  24.608] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 128
+[  3.916  22.994] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 256
+[  2.943  22.708] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 512
+[  2.61   22.638] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 1024
+[  2.536  22.57 ] {'model_type': 'ridge', 'alpha': 3981.0717055349692} 2048
+[  8.687  25.034] {'model_type': 'ridge', 'alpha': 11659.144011798311} 64
+[  6.263  24.388] {'model_type': 'ridge', 'alpha': 11659.144011798311} 128
+[  4.808  23.174] {'model_type': 'ridge', 'alpha': 11659.144011798311} 256
+[  4.237  22.774] {'model_type': 'ridge', 'alpha': 11659.144011798311} 512
+[  4.087  22.645] {'model_type': 'ridge', 'alpha': 11659.144011798311} 1024
+[  4.06   22.641] {'model_type': 'ridge', 'alpha': 11659.144011798311} 2048
+[  9.435  25.234] {'model_type': 'ridge', 'alpha': 34145.488738336004} 64
+[  7.689  24.279] {'model_type': 'ridge', 'alpha': 34145.488738336004} 128
+[  6.867  23.505] {'model_type': 'ridge', 'alpha': 34145.488738336004} 256
+[  6.612  23.391] {'model_type': 'ridge', 'alpha': 34145.488738336004} 512
+[  6.553  23.418] {'model_type': 'ridge', 'alpha': 34145.488738336004} 1024
+[  6.543  23.409] {'model_type': 'ridge', 'alpha': 34145.488738336004} 2048
+[ 11.852  26.427] {'model_type': 'ridge', 'alpha': 100000.0} 64
+[ 10.926  25.931] {'model_type': 'ridge', 'alpha': 100000.0} 128
+[ 10.57   25.643] {'model_type': 'ridge', 'alpha': 100000.0} 256
+[ 10.473  25.621] {'model_type': 'ridge', 'alpha': 100000.0} 512
+[ 10.452  25.632] {'model_type': 'ridge', 'alpha': 100000.0} 1024
+[ 10.449  25.628] {'model_type': 'ridge', 'alpha': 100000.0} 2048
+
+[  8.003  25.725] {'model_type': 'ridge', 'alpha': 0.01} 72
+[  6.767  24.526] {'model_type': 'ridge', 'alpha': 0.01} 96
+[  6.067  25.606] {'model_type': 'ridge', 'alpha': 0.01} 120
+[  4.914  23.847] {'model_type': 'ridge', 'alpha': 0.01} 160
+[  4.417  23.437] {'model_type': 'ridge', 'alpha': 0.01} 192
+[  3.987  24.329] {'model_type': 'ridge', 'alpha': 0.01} 224
+[  3.09   25.283] {'model_type': 'ridge', 'alpha': 0.01} 320
+[  2.75   24.485] {'model_type': 'ridge', 'alpha': 0.01} 384
+[  2.462  23.779] {'model_type': 'ridge', 'alpha': 0.01} 448
+[  1.95   24.242] {'model_type': 'ridge', 'alpha': 0.01} 640
+[  1.735  23.621] {'model_type': 'ridge', 'alpha': 0.01} 768
+[  1.576  24.689] {'model_type': 'ridge', 'alpha': 0.01} 896
+[  1.24   24.876] {'model_type': 'ridge', 'alpha': 0.01} 1280
+[  1.088  25.211] {'model_type': 'ridge', 'alpha': 0.01} 1536
+[  0.975  25.593] {'model_type': 'ridge', 'alpha': 0.01} 1792
+[  8.019  25.921] {'model_type': 'ridge', 'alpha': 0.1} 72
+[  6.761  24.251] {'model_type': 'ridge', 'alpha': 0.1} 96
+[  6.024  25.734] {'model_type': 'ridge', 'alpha': 0.1} 120
+[  4.937  23.927] {'model_type': 'ridge', 'alpha': 0.1} 160
+[  4.391  23.735] {'model_type': 'ridge', 'alpha': 0.1} 192
+[  4.004  23.637] {'model_type': 'ridge', 'alpha': 0.1} 224
+[  3.073  25.196] {'model_type': 'ridge', 'alpha': 0.1} 320
+[  2.734  23.909] {'model_type': 'ridge', 'alpha': 0.1} 384
+[  2.473  23.494] {'model_type': 'ridge', 'alpha': 0.1} 448
+[  1.943  23.816] {'model_type': 'ridge', 'alpha': 0.1} 640
+[  1.736  23.182] {'model_type': 'ridge', 'alpha': 0.1} 768
+[  1.581  24.432] {'model_type': 'ridge', 'alpha': 0.1} 896
+[  1.236  24.463] {'model_type': 'ridge', 'alpha': 0.1} 1280
+[  1.086  25.135] {'model_type': 'ridge', 'alpha': 0.1} 1536
+[  0.975  25.591] {'model_type': 'ridge', 'alpha': 0.1} 1792
+[  7.969  25.829] {'model_type': 'ridge', 'alpha': 1.0} 72
+[  6.747  24.477] {'model_type': 'ridge', 'alpha': 1.0} 96
+[  6.035  25.592] {'model_type': 'ridge', 'alpha': 1.0} 120
+[  4.931  23.758] {'model_type': 'ridge', 'alpha': 1.0} 160
+[  4.407  24.393] {'model_type': 'ridge', 'alpha': 1.0} 192
+[  3.989  24.176] {'model_type': 'ridge', 'alpha': 1.0} 224
+[  3.101  24.859] {'model_type': 'ridge', 'alpha': 1.0} 320
+[  2.746  24.339] {'model_type': 'ridge', 'alpha': 1.0} 384
+[  2.481  23.772] {'model_type': 'ridge', 'alpha': 1.0} 448
+[  1.951  24.163] {'model_type': 'ridge', 'alpha': 1.0} 640
+[  1.735  23.44 ] {'model_type': 'ridge', 'alpha': 1.0} 768
+[  1.578  24.787] {'model_type': 'ridge', 'alpha': 1.0} 896
+[  1.24   24.286] {'model_type': 'ridge', 'alpha': 1.0} 1280
+[  1.087  24.806] {'model_type': 'ridge', 'alpha': 1.0} 1536
+[  0.975  25.575] {'model_type': 'ridge', 'alpha': 1.0} 1792
+[  8.086  25.799] {'model_type': 'ridge', 'alpha': 10.0} 72
+[  6.813  24.55 ] {'model_type': 'ridge', 'alpha': 10.0} 96
+[  6.085  25.289] {'model_type': 'ridge', 'alpha': 10.0} 120
+[  4.896  23.557] {'model_type': 'ridge', 'alpha': 10.0} 160
+[  4.39   23.414] {'model_type': 'ridge', 'alpha': 10.0} 192
+[  4.012  23.559] {'model_type': 'ridge', 'alpha': 10.0} 224
+[  3.111  25.425] {'model_type': 'ridge', 'alpha': 10.0} 320
+[  2.733  24.726] {'model_type': 'ridge', 'alpha': 10.0} 384
+[  2.465  24.121] {'model_type': 'ridge', 'alpha': 10.0} 448
+[  1.94   24.228] {'model_type': 'ridge', 'alpha': 10.0} 640
+[  1.741  23.474] {'model_type': 'ridge', 'alpha': 10.0} 768
+[  1.571  23.846] {'model_type': 'ridge', 'alpha': 10.0} 896
+[  1.24   24.294] {'model_type': 'ridge', 'alpha': 10.0} 1280
+[  1.087  24.745] {'model_type': 'ridge', 'alpha': 10.0} 1536
+[  0.976  25.423] {'model_type': 'ridge', 'alpha': 10.0} 1792
+[  8.075  25.006] {'model_type': 'ridge', 'alpha': 100.0} 72
+[  6.783  24.948] {'model_type': 'ridge', 'alpha': 100.0} 96
+[  6.059  25.58 ] {'model_type': 'ridge', 'alpha': 100.0} 120
+[  4.941  24.432] {'model_type': 'ridge', 'alpha': 100.0} 160
+[  4.36   23.849] {'model_type': 'ridge', 'alpha': 100.0} 192
+[  3.996  22.77 ] {'model_type': 'ridge', 'alpha': 100.0} 224
+[  3.114  24.961] {'model_type': 'ridge', 'alpha': 100.0} 320
+[  2.736  24.737] {'model_type': 'ridge', 'alpha': 100.0} 384
+[  2.476  24.404] {'model_type': 'ridge', 'alpha': 100.0} 448
+[  1.947  23.828] {'model_type': 'ridge', 'alpha': 100.0} 640
+[  1.741  24.056] {'model_type': 'ridge', 'alpha': 100.0} 768
+[  1.579  24.285] {'model_type': 'ridge', 'alpha': 100.0} 896
+[  1.249  23.823] {'model_type': 'ridge', 'alpha': 100.0} 1280
+[  1.114  23.914] {'model_type': 'ridge', 'alpha': 100.0} 1536
+[  1.018  24.521] {'model_type': 'ridge', 'alpha': 100.0} 1792
+[  8.028  25.76 ] {'model_type': 'ridge', 'alpha': 1000.0} 72
+[  6.737  23.836] {'model_type': 'ridge', 'alpha': 1000.0} 96
+[  6.104  25.45 ] {'model_type': 'ridge', 'alpha': 1000.0} 120
+[  4.936  23.355] {'model_type': 'ridge', 'alpha': 1000.0} 160
+[  4.406  23.192] {'model_type': 'ridge', 'alpha': 1000.0} 192
+[  4.002  23.378] {'model_type': 'ridge', 'alpha': 1000.0} 224
+[  3.153  24.463] {'model_type': 'ridge', 'alpha': 1000.0} 320
+[  2.8    23.723] {'model_type': 'ridge', 'alpha': 1000.0} 384
+[  2.535  23.051] {'model_type': 'ridge', 'alpha': 1000.0} 448
+[  2.099  23.553] {'model_type': 'ridge', 'alpha': 1000.0} 640
+[  1.925  23.26 ] {'model_type': 'ridge', 'alpha': 1000.0} 768
+[  1.81   23.251] {'model_type': 'ridge', 'alpha': 1000.0} 896
+[  1.615  23.028] {'model_type': 'ridge', 'alpha': 1000.0} 1280
+[  1.558  22.948] {'model_type': 'ridge', 'alpha': 1000.0} 1536
+[  1.528  23.027] {'model_type': 'ridge', 'alpha': 1000.0} 1792
+[  8.174  25.06 ] {'model_type': 'ridge', 'alpha': 10000.0} 72
+[  7.04   24.003] {'model_type': 'ridge', 'alpha': 10000.0} 96
+[  6.423  24.308] {'model_type': 'ridge', 'alpha': 10000.0} 120
+[  5.498  22.95 ] {'model_type': 'ridge', 'alpha': 10000.0} 160
+[  5.115  22.923] {'model_type': 'ridge', 'alpha': 10000.0} 192
+[  4.822  22.888] {'model_type': 'ridge', 'alpha': 10000.0} 224
+[  4.332  23.253] {'model_type': 'ridge', 'alpha': 10000.0} 320
+[  4.17   23.022] {'model_type': 'ridge', 'alpha': 10000.0} 384
+[  4.06   22.685] {'model_type': 'ridge', 'alpha': 10000.0} 448
+[  3.908  22.672] {'model_type': 'ridge', 'alpha': 10000.0} 640
+[  3.865  22.618] {'model_type': 'ridge', 'alpha': 10000.0} 768
+[  3.839  22.617] {'model_type': 'ridge', 'alpha': 10000.0} 896
+[  3.804  22.608] {'model_type': 'ridge', 'alpha': 10000.0} 1280
+[  3.796  22.592] {'model_type': 'ridge', 'alpha': 10000.0} 1536
+[  3.792  22.599] {'model_type': 'ridge', 'alpha': 10000.0} 1792
+[ 11.636  26.53 ] {'model_type': 'ridge', 'alpha': 100000.0} 72
+[ 11.194  25.894] {'model_type': 'ridge', 'alpha': 100000.0} 96
+[ 10.997  25.894] {'model_type': 'ridge', 'alpha': 100000.0} 120
+[ 10.749  25.7  ] {'model_type': 'ridge', 'alpha': 100000.0} 160
+[ 10.671  25.643] {'model_type': 'ridge', 'alpha': 100000.0} 192
+[ 10.614  25.64 ] {'model_type': 'ridge', 'alpha': 100000.0} 224
+[ 10.524  25.68 ] {'model_type': 'ridge', 'alpha': 100000.0} 320
+[ 10.496  25.655] {'model_type': 'ridge', 'alpha': 100000.0} 384
+[ 10.482  25.617] {'model_type': 'ridge', 'alpha': 100000.0} 448
+[ 10.462  25.63 ] {'model_type': 'ridge', 'alpha': 100000.0} 640
+[ 10.457  25.629] {'model_type': 'ridge', 'alpha': 100000.0} 768
+[ 10.454  25.63 ] {'model_type': 'ridge', 'alpha': 100000.0} 896
+[ 10.45   25.628] {'model_type': 'ridge', 'alpha': 100000.0} 1280
+[ 10.449  25.628] {'model_type': 'ridge', 'alpha': 100000.0} 1536
+[ 10.449  25.628] {'model_type': 'ridge', 'alpha': 100000.0} 1792
+[  8.026  26.099] {'model_type': 'ridge', 'alpha': 0.03} 72
+[  6.77   24.323] {'model_type': 'ridge', 'alpha': 0.03} 96
+[  6.051  25.613] {'model_type': 'ridge', 'alpha': 0.03} 120
+[  4.94  23.63] {'model_type': 'ridge', 'alpha': 0.03} 160
+[  4.415  23.579] {'model_type': 'ridge', 'alpha': 0.03} 192
+[  3.965  23.88 ] {'model_type': 'ridge', 'alpha': 0.03} 224
+[  3.09   25.261] {'model_type': 'ridge', 'alpha': 0.03} 320
+[  2.743  24.851] {'model_type': 'ridge', 'alpha': 0.03} 384
+[  2.466  23.491] {'model_type': 'ridge', 'alpha': 0.03} 448
+[  1.952  24.428] {'model_type': 'ridge', 'alpha': 0.03} 640
+[  1.736  23.711] {'model_type': 'ridge', 'alpha': 0.03} 768
+[  1.577  24.57 ] {'model_type': 'ridge', 'alpha': 0.03} 896
+[  1.238  24.551] {'model_type': 'ridge', 'alpha': 0.03} 1280
+[  1.088  25.132] {'model_type': 'ridge', 'alpha': 0.03} 1536
+[  0.975  25.593] {'model_type': 'ridge', 'alpha': 0.03} 1792
+[  8.001  25.896] {'model_type': 'ridge', 'alpha': 0.3} 72
+[  6.763  23.85 ] {'model_type': 'ridge', 'alpha': 0.3} 96
+[  6.089  25.505] {'model_type': 'ridge', 'alpha': 0.3} 120
+[  4.933  23.494] {'model_type': 'ridge', 'alpha': 0.3} 160
+[  4.409  23.269] {'model_type': 'ridge', 'alpha': 0.3} 192
+[  3.96   23.964] {'model_type': 'ridge', 'alpha': 0.3} 224
+[  3.118  25.075] {'model_type': 'ridge', 'alpha': 0.3} 320
+[  2.734  24.031] {'model_type': 'ridge', 'alpha': 0.3} 384
+[  2.456  23.778] {'model_type': 'ridge', 'alpha': 0.3} 448
+[  1.948  23.834] {'model_type': 'ridge', 'alpha': 0.3} 640
+[  1.732  23.961] {'model_type': 'ridge', 'alpha': 0.3} 768
+[  1.576  24.524] {'model_type': 'ridge', 'alpha': 0.3} 896
+[  1.238  23.998] {'model_type': 'ridge', 'alpha': 0.3} 1280
+[  1.087  24.95 ] {'model_type': 'ridge', 'alpha': 0.3} 1536
+[  0.975  25.588] {'model_type': 'ridge', 'alpha': 0.3} 1792
+[  8.09  25.93] {'model_type': 'ridge', 'alpha': 3.0} 72
+[  6.788  24.059] {'model_type': 'ridge', 'alpha': 3.0} 96
+[  6.033  25.474] {'model_type': 'ridge', 'alpha': 3.0} 120
+[  4.9    24.338] {'model_type': 'ridge', 'alpha': 3.0} 160
+[  4.404  23.434] {'model_type': 'ridge', 'alpha': 3.0} 192
+[  3.978  24.376] {'model_type': 'ridge', 'alpha': 3.0} 224
+[  3.115  24.956] {'model_type': 'ridge', 'alpha': 3.0} 320
+[  2.727  24.507] {'model_type': 'ridge', 'alpha': 3.0} 384
+[  2.471  23.592] {'model_type': 'ridge', 'alpha': 3.0} 448
+[  1.941  23.434] {'model_type': 'ridge', 'alpha': 3.0} 640
+[  1.733  23.723] {'model_type': 'ridge', 'alpha': 3.0} 768
+[  1.575  25.07 ] {'model_type': 'ridge', 'alpha': 3.0} 896
+[  1.236  24.119] {'model_type': 'ridge', 'alpha': 3.0} 1280
+[  1.086  24.825] {'model_type': 'ridge', 'alpha': 3.0} 1536
+[  0.975  25.54 ] {'model_type': 'ridge', 'alpha': 3.0} 1792
+[  8.046  25.399] {'model_type': 'ridge', 'alpha': 30.0} 72
+[  6.77   24.446] {'model_type': 'ridge', 'alpha': 30.0} 96
+[  6.086  25.616] {'model_type': 'ridge', 'alpha': 30.0} 120
+[  4.997  22.927] {'model_type': 'ridge', 'alpha': 30.0} 160
+[  4.407  23.847] {'model_type': 'ridge', 'alpha': 30.0} 192
+[  4.008  23.843] {'model_type': 'ridge', 'alpha': 30.0} 224
+[  3.107  25.019] {'model_type': 'ridge', 'alpha': 30.0} 320
+[  2.73   24.433] {'model_type': 'ridge', 'alpha': 30.0} 384
+[  2.473  23.623] {'model_type': 'ridge', 'alpha': 30.0} 448
+[  1.944  24.377] {'model_type': 'ridge', 'alpha': 30.0} 640
+[  1.727  23.685] {'model_type': 'ridge', 'alpha': 30.0} 768
+[  1.573  25.213] {'model_type': 'ridge', 'alpha': 30.0} 896
+[  1.24   24.305] {'model_type': 'ridge', 'alpha': 30.0} 1280
+[  1.089  24.537] {'model_type': 'ridge', 'alpha': 30.0} 1536
+[  0.981  25.143] {'model_type': 'ridge', 'alpha': 30.0} 1792
+[  8.032  25.027] {'model_type': 'ridge', 'alpha': 300.0} 72
+[  6.744  24.407] {'model_type': 'ridge', 'alpha': 300.0} 96
+[  6.092  25.282] {'model_type': 'ridge', 'alpha': 300.0} 120
+[  4.916  23.523] {'model_type': 'ridge', 'alpha': 300.0} 160
+[  4.404  24.123] {'model_type': 'ridge', 'alpha': 300.0} 192
+[  4.008  23.932] {'model_type': 'ridge', 'alpha': 300.0} 224
+[  3.085  24.811] {'model_type': 'ridge', 'alpha': 300.0} 320
+[  2.749  23.992] {'model_type': 'ridge', 'alpha': 300.0} 384
+[  2.475  23.58 ] {'model_type': 'ridge', 'alpha': 300.0} 448
+[  1.969  23.62 ] {'model_type': 'ridge', 'alpha': 300.0} 640
+[  1.761  23.941] {'model_type': 'ridge', 'alpha': 300.0} 768
+[  1.614  23.33 ] {'model_type': 'ridge', 'alpha': 300.0} 896
+[  1.322  23.639] {'model_type': 'ridge', 'alpha': 300.0} 1280
+[  1.214  23.661] {'model_type': 'ridge', 'alpha': 300.0} 1536
+[  1.149  23.761] {'model_type': 'ridge', 'alpha': 300.0} 1792
+[  8.065  25.215] {'model_type': 'ridge', 'alpha': 3000.0} 72
+[  6.791  24.176] {'model_type': 'ridge', 'alpha': 3000.0} 96
+[  6.122  24.772] {'model_type': 'ridge', 'alpha': 3000.0} 120
+[  5.03   22.924] {'model_type': 'ridge', 'alpha': 3000.0} 160
+[  4.505  23.252] {'model_type': 'ridge', 'alpha': 3000.0} 192
+[  4.142  23.108] {'model_type': 'ridge', 'alpha': 3000.0} 224
+[  3.381  23.714] {'model_type': 'ridge', 'alpha': 3000.0} 320
+[  3.075  23.136] {'model_type': 'ridge', 'alpha': 3000.0} 384
+[  2.886  22.951] {'model_type': 'ridge', 'alpha': 3000.0} 448
+[  2.57   22.614] {'model_type': 'ridge', 'alpha': 3000.0} 640
+[  2.461  22.588] {'model_type': 'ridge', 'alpha': 3000.0} 768
+[  2.396  22.858] {'model_type': 'ridge', 'alpha': 3000.0} 896
+[  2.298  22.65 ] {'model_type': 'ridge', 'alpha': 3000.0} 1280
+[  2.273  22.615] {'model_type': 'ridge', 'alpha': 3000.0} 1536
+[  2.262  22.623] {'model_type': 'ridge', 'alpha': 3000.0} 1792
+[  8.923  25.149] {'model_type': 'ridge', 'alpha': 30000.0} 72
+[  8.004  24.025] {'model_type': 'ridge', 'alpha': 30000.0} 96
+[  7.603  24.185] {'model_type': 'ridge', 'alpha': 30000.0} 120
+[  7.015  23.493] {'model_type': 'ridge', 'alpha': 30000.0} 160
+[  6.788  23.383] {'model_type': 'ridge', 'alpha': 30000.0} 192
+[  6.654  23.316] {'model_type': 'ridge', 'alpha': 30000.0} 224
+[  6.408  23.404] {'model_type': 'ridge', 'alpha': 30000.0} 320
+[  6.333  23.398] {'model_type': 'ridge', 'alpha': 30000.0} 384
+[  6.286  23.371] {'model_type': 'ridge', 'alpha': 30000.0} 448
+[  6.225  23.269] {'model_type': 'ridge', 'alpha': 30000.0} 640
+[  6.208  23.243] {'model_type': 'ridge', 'alpha': 30000.0} 768
+[  6.198  23.265] {'model_type': 'ridge', 'alpha': 30000.0} 896
+[  6.186  23.264] {'model_type': 'ridge', 'alpha': 30000.0} 1280
+[  6.183  23.26 ] {'model_type': 'ridge', 'alpha': 30000.0} 1536
+[  6.182  23.261] {'model_type': 'ridge', 'alpha': 30000.0} 1792
+[ 17.732  31.816] {'model_type': 'ridge', 'alpha': 300000.0} 72
+[ 17.538  31.594] {'model_type': 'ridge', 'alpha': 300000.0} 96
+[ 17.463  31.58 ] {'model_type': 'ridge', 'alpha': 300000.0} 120
+[ 17.369  31.477] {'model_type': 'ridge', 'alpha': 300000.0} 160
+[ 17.341  31.489] {'model_type': 'ridge', 'alpha': 300000.0} 192
+[ 17.322  31.489] {'model_type': 'ridge', 'alpha': 300000.0} 224
+[ 17.289  31.485] {'model_type': 'ridge', 'alpha': 300000.0} 320
+[ 17.281  31.481] {'model_type': 'ridge', 'alpha': 300000.0} 384
+[ 17.276  31.485] {'model_type': 'ridge', 'alpha': 300000.0} 448
+[ 17.269  31.486] {'model_type': 'ridge', 'alpha': 300000.0} 640
+[ 17.267  31.484] {'model_type': 'ridge', 'alpha': 300000.0} 768
+[ 17.266  31.485] {'model_type': 'ridge', 'alpha': 300000.0} 896
+[ 17.265  31.484] {'model_type': 'ridge', 'alpha': 300000.0} 1280
+[ 17.265  31.484] {'model_type': 'ridge', 'alpha': 300000.0} 1536
+[ 17.265  31.484] {'model_type': 'ridge', 'alpha': 300000.0} 1792
