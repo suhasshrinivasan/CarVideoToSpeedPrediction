@@ -1,20 +1,25 @@
 import cPickle as pickle
 import json
+import matplotlib
 import numpy as np
 import os
 import warnings
 from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
 
 from frames_to_features import extract_features
 from smooth_signal import ma_smoothing
 from video_to_frames import get_video_frames
+
+matplotlib.use('qt5agg')
+import matplotlib.pyplot as plt
 
 # Initial Setup
 extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_signal_window_size = 151
 data_dir = 'data/'
-filename_base = 'drive_test'
+filename_base = 'drive_orig'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
@@ -36,7 +41,8 @@ X_test = npz_file['arr_0']
 print('Extracted Feature Data Shape: ' + str(X_test.shape))
 
 # Split data
-time_speed_data = time_speed_data[:X_test.shape[0],:]
+time_speed_data = time_speed_data[-X_test.shape[0]:,:]
+print X_test.shape, time_speed_data.shape
 time_test = time_speed_data[:,0].reshape(-1,1)
 y_test = time_speed_data[:,1].reshape(-1,1)
 print('Data processed.')
@@ -44,13 +50,18 @@ print('Data processed.')
 # Load Final Model and Preprocessor
 with open('final_model.pickle', 'rb') as f:
 	model = pickle.load(f)
-with open('final_scaler.pickle', 'rb') as f:
-	scaler = pickle.load(f)
+# with open('final_scaler.pickle', 'rb') as f:
+# 	scaler = pickle.load(f)
+# print scaler.get_params()
 print('Model and Preprocessor Loaded.')
 
 # Predict off Extracted Features
-X_test = scaler.transform(X_test)
+# X_test = scaler.transform(X_test)
 y_test_pred = model.predict(X_test)
 y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
 print('Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
-print('Enjoyed the challenge. :)')
+
+plt.plot(y_test,label='Actual')
+plt.plot(y_test_pred, label='Predicted')
+plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+plt.show()
