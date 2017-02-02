@@ -31,8 +31,8 @@ num_frames = get_video_frames(data_filepath, override_existing=False)
 extract_features(
     data_filepath, num_frames, extraction_network=extraction_network, override_existing=False)
 npz_file = np.load(features_filepath)
-X = npz_file['arr_0']
-print('Extracted Feature Data Shape: ' + str(X.shape))
+X_test = npz_file['arr_0']
+print('Extracted Feature Data Shape: ' + str(X_test.shape))
 
 # Split data
 time_speed_data = time_speed_data[:X.shape[0],:]
