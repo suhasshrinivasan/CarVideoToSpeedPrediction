@@ -32,13 +32,13 @@ smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1  # TODO: Remove this feature?
 scale_data = True
-best_pca_n_components = 0  # <= num features, 0 for No PCA, None to Hyperparameter Sweep
+best_pca_n_components = None  # <= num features, 0 for No PCA, None to Hyperparameter Sweep
 train_fraction = 0.839  # Split chosen based on ratio of highway to city driving in data
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 show_model_plots = True
 test_data_location = 'end'
-# best_config = None
-best_config = {'model_type': 'ridge', 'alpha': 4000.0}  # 8.44 MSE
+best_config = None
+# best_config = {'model_type': 'ridge', 'alpha': 4000.0}  # Using no PCA
 print(best_pca_n_components)
 
 # Initial Setup
