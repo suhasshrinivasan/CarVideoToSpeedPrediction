@@ -62,7 +62,7 @@ def extract_features(data_filepath, num_frames, extraction_network='resnet50', o
 
     print('- Preprocessing Data...')
     x = preprocess_input(x)
-    print('- Running Network... (This takes on the order of 0.5s per frame on CPU)')
+    print('- Running Network... (This takes on the order of 0.4s per frame on CPU)')
     features = model.predict(x)
 
     if extraction_network == 'resnet50':
