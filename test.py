@@ -35,7 +35,7 @@ X_test = npz_file['arr_0']
 print('Extracted Feature Data Shape: ' + str(X_test.shape))
 
 # Split data
-time_speed_data = time_speed_data[:X.shape[0],:]
+time_speed_data = time_speed_data[:X_test.shape[0],:]
 time_test = time_speed_data[:,0].reshape(-1,1)
 y_test = time_speed_data[:,1].reshape(-1,1)
 print('Data processed.')
