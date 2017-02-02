@@ -35,6 +35,7 @@ X = npz_file['arr_0']
 print('Extracted Feature Data Shape: ' + str(X.shape))
 
 # Split data
+time_speed_data = time_speed_data[:X.shape[0],:]
 print X.shape, time_speed_data.shape
 assert(X.shape[0] == time_speed_data.shape[0])
 time_test = time_speed_data_test[:,0].reshape(-1,1)
