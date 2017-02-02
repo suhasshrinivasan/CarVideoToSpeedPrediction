@@ -3,6 +3,7 @@ import json
 import numpy as np
 import os
 import warnings
+from sklearn.metrics import mean_squared_error
 
 from frames_to_features import extract_features
 from smooth_signal import ma_smoothing
