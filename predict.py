@@ -32,7 +32,7 @@ smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1
 smooth_signal_window_size = 151
-scale_data = False
+scale_data = True
 show_model_plots = True
 best_config = {'model_type': 'ridge', 'alpha': 40000.0}  # alpha=20000 good too. None for HP Sweep or non-final runs
 best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
@@ -173,17 +173,6 @@ if model_type[-2:] != 'nn':  # Simple Model
 
     	with open('final_scaler.pickle', 'wb') as f:
     		pickle.dump(scaler, f, -1)
-
-        # data_filename_base = 'drive_test'
-        # data_filepath = data_filename_base + '.mp4'
-        # with open (data_filename_base + '.json', 'r') as json_raw_data:
-        #     time_speed_data = json_raw_data.readlines()[0]
-        # time_speed_data = np.array(json.loads(time_speed_data))
-        # print('Labels Loaded.')
-        #
-        # npz_file = np.load(features_filepath)
-        # X_test = npz_file['arr_0']
-        # print('Extracted Feature Data Shape: ' + str(X_test.shape))
 
 else:  # Neural Network Model
     print('Keras model training optimized for ' + str.upper(using) + '.')

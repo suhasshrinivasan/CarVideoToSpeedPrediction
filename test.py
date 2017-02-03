@@ -50,13 +50,12 @@ print('Data processed.')
 # Load Final Model and Preprocessor
 with open('final_model.pickle', 'rb') as f:
 	model = pickle.load(f)
-# with open('final_scaler.pickle', 'rb') as f:
-# 	scaler = pickle.load(f)
-# print scaler.get_params()
+with open('final_scaler.pickle', 'rb') as f:
+	scaler = pickle.load(f)
 print('Model and Preprocessor Loaded.')
 
 # Predict off Extracted Features
-# X_test = scaler.transform(X_test)
+X_test = scaler.transform(X_test)
 y_test_pred = model.predict(X_test)
 y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
 print('Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))

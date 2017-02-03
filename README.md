@@ -9,4 +9,4 @@ To test on new data:
 - From project's top level directory, run "python test.py"
 - Change the versions Python packages as necessary if errors occur
 - If execution is interrupted while converting "drive_test.mp4" into the folder of JPEG's
-    "drive/"
+    "drive/", please delete the created "drive/" folder and run "python test.py" again.
