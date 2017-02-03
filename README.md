@@ -10,3 +10,6 @@ To test on new data:
 - Change the versions Python packages as necessary if errors occur
 - If execution is interrupted while converting "drive_test.mp4" into the folder of JPEG's
     "drive/", please delete the created "drive/" folder and run "python test.py" again.
+
+
+Be sure to check out cool_viz.mp4 for a cool visualization. Big thanks to Joseph Redmon's YOLO Darknet repo for help generating the visualization.

@@ -31,11 +31,13 @@ extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1
-smooth_signal_window_size = 151
+smooth_signal_window_size = [101, 151, 191, 241, 291]  # Set to a list of values to test them via validation
 scale_data = True
-show_model_plots = False
-best_config = {'model_type': 'ridge', 'alpha': 40000.0}  # alpha=20000 good too. None for HP Sweep or non-final runs
-best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
+show_model_plots = True
+best_config = None
+best_pca_n_components = None
+# best_config = {'model_type': 'ridge', 'alpha': 40000.0}  # alpha=20000 good too. None for HP Sweep or non-final runs
+# best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 val_fraction = 0.15  # What fraction of the training data to use for validation
 train_fraction = 0.839  # Split for train+val chosen to equalize ratio of highway to city driving in training and testing data
@@ -100,7 +102,7 @@ print('Data processed.')
 if model_type[-2:] != 'nn':  # Simple Model
     if best_config is None:
         if best_pca_n_components is None:
-            pca_n_components_list = [16, 32, 64, 128, 256, 512, 1024, 2048]
+            pca_n_components_list = [64, 128, 256, 512, 1024, 2048]
         else:
             pca_n_components_list = [best_pca_n_components]
         best_config, best_train_val_error = hp_sweep(
@@ -140,32 +142,36 @@ if model_type[-2:] != 'nn':  # Simple Model
     model = init_model(best_config)
     model.fit(X_train, y_train)
 
-    y_train_pred = model.predict(X_train)
-    print(str.upper(model_type) +
-        ' Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
+    if not smooth_signal_window_sizes isinstance(a, (list, tuple)):
+        smooth_signal_window_sizes = [smooth_signal_window_sizes]
 
-    y_train_pred_smoothed = smooth_signal(y_train_pred, smooth_signal_window_size)
-    print(str.upper(model_type) +
-        ' Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
+    for smooth_signal_window_size in smooth_signal_window_sizes:
+        y_train_pred = model.predict(X_train)
+        print(str.upper(model_type) +
+            ' Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
 
-    y_test_pred = model.predict(X_test)
-    print(str.upper(model_type) +
-        ' Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+        y_train_pred_smoothed = smooth_signal(y_train_pred, smooth_signal_window_size)
+        print(str.upper(model_type) +
+            ' Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
 
-    y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
-    print(str.upper(model_type) +
-        ' Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
+        y_test_pred = model.predict(X_test)
+        print(str.upper(model_type) +
+            ' Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
 
-    if show_model_plots:
-        plt.plot(y_train,label='Actual')
-        plt.plot(y_train_pred, label='Predicted')
-        plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
-        plt.show()
+        y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
+        print(str.upper(model_type) +
+            ' Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
 
-        plt.plot(y_test,label='Actual')
-        plt.plot(y_test_pred, label='Predicted')
-        plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
-        plt.show()
+        if show_model_plots:
+            plt.plot(y_train,label='Actual')
+            plt.plot(y_train_pred, label='Predicted')
+            plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
+            plt.show()
+
+            plt.plot(y_test,label='Actual')
+            plt.plot(y_test_pred, label='Predicted')
+            plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+            plt.show()
 
     if best_config is not None:
     	with open('final_model.pickle', 'wb') as f:

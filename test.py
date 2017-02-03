@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_signal_window_size = 151
+show_model_plots = True
 data_dir = 'data/'
 filename_base = 'drive_orig_theano'
 data_filename_base = os.path.join(data_dir, filename_base)
@@ -60,7 +61,8 @@ y_test_pred = model.predict(X_test)
 y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
 print('Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
 
-plt.plot(y_test,label='Actual')
-plt.plot(y_test_pred, label='Predicted')
-plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
-plt.show()
+if show_model_plots:
+    plt.plot(y_test,label='Actual')
+    plt.plot(y_test_pred, label='Predicted')
+    plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+    plt.show()
