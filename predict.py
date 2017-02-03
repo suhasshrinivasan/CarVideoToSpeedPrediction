@@ -31,10 +31,10 @@ extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1
-smooth_signal_window_sizes = 153  # Set to a list of values to test them via validation OR to a value to set it constant
+smooth_signal_window_sizes = 151  # Set to a list of values to test them via validation OR to a value to set it constant
 scale_data = True
 show_model_plots = True
-best_config = {'model_type': 'ridge', 'alpha': 20000.0}  # alpha=3000 good too. None for HP Sweep or non-final runs
+best_config = {'model_type': 'ridge', 'alpha': 10000.0}  # alpha=40000 good too. None for HP Sweep or non-final runs
 best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 val_fraction = 0.15  # What fraction of the training data to use for validation
@@ -49,7 +49,7 @@ if len(sys.argv) >= 2 and (sys.argv[-1] == '-g' or sys.argv[1] == '--gpu-optimiz
     using = 'gpu'
 model_type = str.lower(model_type)
 data_dir = 'data/'
-filename_base = 'drive_orig_theano'
+filename_base = 'drive'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
@@ -146,33 +146,33 @@ if model_type[-2:] != 'nn':  # Simple Model
     for smooth_signal_window_size in smooth_signal_window_sizes:
         print smooth_signal_window_size
         y_train_pred = model.predict(X_train)
-        print(str.upper(model_type) +
-            ' Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
+        train_mse = mean_squared_error(y_train, y_train_pred)
+        print(str.upper(model_type) + ' Model Train MSE: %.2f' % train_mse)
 
         y_train_pred_smoothed = smooth_signal(y_train_pred, smooth_signal_window_size)
-        print(str.upper(model_type) +
-            ' Model Smoothed Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred_smoothed))
+        train_smoothed_mse = mean_squared_error(y_train, y_train_pred_smoothed)
+        print(str.upper(model_type) + ' Model Smoothed Train MSE: %.2f' % train_smoothed_mse)
 
         y_test_pred = model.predict(X_test)
-        print(str.upper(model_type) +
-            ' Model Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred))
+        test_mse = mean_squared_error(y_test, y_test_pred)
+        print(str.upper(model_type) + ' Model Test MSE: %.2f' % test_mse)
 
         y_test_pred_smoothed = smooth_signal(y_test_pred, smooth_signal_window_size)
-        print(str.upper(model_type) +
-            ' Model Smoothed Test MSE: %.2f' % mean_squared_error(y_test, y_test_pred_smoothed))
+        test_smoothed_mse = mean_squared_error(y_test, y_test_pred_smoothed)
+        print(str.upper(model_type) + ' Model Smoothed Test MSE: %.2f' % test_smoothed_mse)
 
         if show_model_plots:
             plt.plot(y_train,label='Actual')
             plt.plot(y_train_pred, label='Predicted')
             plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
-            plt.title('Training Data: 3.84 MSE')
+            plt.title('Training Data: %.2f MSE' % train_smoothed_mse)
             plt.savefig('train_error_plot.png')
             plt.show()
 
             plt.plot(y_test,label='Actual')
             plt.plot(y_test_pred, label='Predicted')
             plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
-            plt.title('Testing Data: 6.31 MSE')
+            plt.title('Testing Data: %.2f MSE' % test_smoothed_mse)
             plt.savefig('test_error_plot.png')
             plt.show()
 
