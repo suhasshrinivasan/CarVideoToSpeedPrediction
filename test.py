@@ -3,6 +3,7 @@ import json
 import matplotlib
 import numpy as np
 import os
+import sys
 import warnings
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
@@ -15,12 +16,14 @@ matplotlib.use('qt5agg')
 import matplotlib.pyplot as plt
 
 # Initial Setup
+filename_base = 'drive_test'
+if len(sys.argv) >= 2 and sys.argv[-1] == '-v':
+    filename_base = 'drive'
 extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_signal_window_size = 151
 show_model_plots = True
 data_dir = 'data/'
-filename_base = 'drive_orig_theano'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
@@ -42,8 +45,7 @@ X_test = npz_file['arr_0']
 print('Extracted Feature Data Shape: ' + str(X_test.shape))
 
 # Split data
-time_speed_data = time_speed_data[-X_test.shape[0]:,:]
-print X_test.shape, time_speed_data.shape
+time_speed_data = time_speed_data[:X_test.shape[0],:]
 time_test = time_speed_data[:,0].reshape(-1,1)
 y_test = time_speed_data[:,1].reshape(-1,1)
 print('Data processed.')

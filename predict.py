@@ -41,6 +41,7 @@ val_fraction = 0.15  # What fraction of the training data to use for validation
 train_fraction = 0.839  # Split for train+val chosen to equalize ratio of highway to city driving in training and testing data
 val_data_location = None  # What section ('beg', 'end', or None) the validation comes from within the training data. None to train and test final model.
 test_data_location = 'end'  # What section ('beg' or 'end') test data comes from withing full data
+overwrite_final_model = True
 
 # Initial Setup
 using = 'cpu'
@@ -166,17 +167,17 @@ if model_type[-2:] != 'nn':  # Simple Model
             plt.plot(y_train_pred, label='Predicted')
             plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
             plt.title('Training Data: 3.84 MSE')
-            plt.show()
             plt.savefig('train_error_plot.png')
+            plt.show()
 
             plt.plot(y_test,label='Actual')
             plt.plot(y_test_pred, label='Predicted')
             plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
             plt.title('Testing Data: 6.31 MSE')
-            plt.show()
             plt.savefig('test_error_plot.png')
+            plt.show()
 
-    if best_config is not None:
+    if overwrite_final_model:
     	with open('final_model.pickle', 'wb') as f:
     		pickle.dump(model, f, -1)
 
