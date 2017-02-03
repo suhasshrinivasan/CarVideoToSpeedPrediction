@@ -1,3 +1,4 @@
 data/
 logs/
 *.pyc
+drive_resnet50_backup.npz
