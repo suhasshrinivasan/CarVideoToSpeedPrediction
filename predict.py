@@ -31,12 +31,12 @@ extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1
-smooth_signal_window_size = [101, 151, 191, 241, 291]  # Set to a list of values to test them via validation
+smooth_signal_window_sizes = [101, 151, 191, 241, 291]  # Set to a list of values to test them via validation
 scale_data = True
 show_model_plots = True
 best_config = None
 best_pca_n_components = None
-# best_config = {'model_type': 'ridge', 'alpha': 40000.0}  # alpha=20000 good too. None for HP Sweep or non-final runs
+# best_config = {'model_type': 'ridge', 'alpha': 10000.0}  # alpha=3000 good too. None for HP Sweep or non-final runs
 # best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 val_fraction = 0.15  # What fraction of the training data to use for validation

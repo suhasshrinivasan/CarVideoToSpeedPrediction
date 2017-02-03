@@ -1,0 +1,30 @@
+[  8.236  33.251] {'model_type': 'ridge', 'alpha': 1000} 64
+[  5.305  34.335] {'model_type': 'ridge', 'alpha': 1000} 128
+[  3.411  31.755] {'model_type': 'ridge', 'alpha': 1000} 256
+[  2.189  30.565] {'model_type': 'ridge', 'alpha': 1000} 512
+[  1.596  31.687] {'model_type': 'ridge', 'alpha': 1000} 1024
+[  1.404  31.275] {'model_type': 'ridge', 'alpha': 1000} 2048
+[  8.326  33.342] {'model_type': 'ridge', 'alpha': 3000} 64
+[  5.286  33.826] {'model_type': 'ridge', 'alpha': 3000} 128
+[  3.56   32.303] {'model_type': 'ridge', 'alpha': 3000} 256
+[  2.577  31.202] {'model_type': 'ridge', 'alpha': 3000} 512
+[  2.217  31.06 ] {'model_type': 'ridge', 'alpha': 3000} 1024
+[  2.135  30.948] {'model_type': 'ridge', 'alpha': 3000} 2048
+[  8.411  32.934] {'model_type': 'ridge', 'alpha': 10000} 64
+[  5.753  32.822] {'model_type': 'ridge', 'alpha': 10000} 128
+[  4.399  31.637] {'model_type': 'ridge', 'alpha': 10000} 256
+[  3.838  30.886] {'model_type': 'ridge', 'alpha': 10000} 512
+[  3.681  30.997] {'model_type': 'ridge', 'alpha': 10000} 1024
+[  3.653  30.95 ] {'model_type': 'ridge', 'alpha': 10000} 2048
+[  8.693  32.405] {'model_type': 'ridge', 'alpha': 20000} 64
+[  6.451  32.486] {'model_type': 'ridge', 'alpha': 20000} 128
+[  5.482  31.169] {'model_type': 'ridge', 'alpha': 20000} 256
+[  5.142  31.003] {'model_type': 'ridge', 'alpha': 20000} 512
+[  5.059  31.05 ] {'model_type': 'ridge', 'alpha': 20000} 1024
+[  5.044  31.028] {'model_type': 'ridge', 'alpha': 20000} 2048
+[  9.55   32.198] {'model_type': 'ridge', 'alpha': 40000} 64
+[  7.842  32.25 ] {'model_type': 'ridge', 'alpha': 40000} 128
+[  7.202  31.409] {'model_type': 'ridge', 'alpha': 40000} 256
+[  7.008  31.226] {'model_type': 'ridge', 'alpha': 40000} 512
+[  6.963  31.267] {'model_type': 'ridge', 'alpha': 40000} 1024
+[  6.956  31.262] {'model_type': 'ridge', 'alpha': 40000} 2048
