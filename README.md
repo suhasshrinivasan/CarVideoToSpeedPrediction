@@ -7,20 +7,21 @@ Final model:
 - Extract Features from frames using pre-trained Residual Network 50
 - Performs Ridge Regression to predict speed at each frame
 - Smooths resulting speed prediction vector via a moving average method
-- Test Set MSE of 6.31
-- Train Set MSE of 3.84
+- Test Set MSE of 6.31 (2.51 RMSE m/s)
+- Train Set MSE of 3.84 (1.96 RMSE m/s)
+
+Be sure to check out cool_viz.mp4 for a cool visualization!
 
 Here are the main modules I used to produce proper runs and results:
 - ***Keras 1.2.1*** Important: Other versions (particularly 1.1)
     might not extract features identically.
-- Keras backend: Theano 0.8.2 or Tensorflow 0.12.1
+- ***Theano 0.8.2*** Same story as above.
 - Python 2.7
-- Numpy 1.12.0 or 1.11.1
+- Numpy 1.12.0
 - SKLearn 0.18
 - CV2 2.4.9
 Other versions might work as well but haven't been tested.
-
-Be sure to check out cool_viz.mp4 for a cool visualization. Big thanks to Joseph Redmon's YOLO Darknet repo for help generating the visualization.
+Tensorflow 0.12.1 might work as Keras backend as well, but hasn't been rigorously tested.
 
 To test on new data:
 - Name the video file "drive_test.mp4"
@@ -34,9 +35,14 @@ To verify running properly:
 - Run "python test.py -v"
 - This will run the model over the training and testing data used originally.
 - Should receive message "Test MSE: 4.21" printed to terminal.
-- If not, use Keras 1.2.1. Feature extraction with pre-trained model might be sensitive to
-    Keras version. Also try Theano 0.8.2 or Tensorflow 0.12.1 as Keras backend,
-    if not using already.
+- If not, use Keras 1.2.1 and Theano 0.8.2 as Keras backend.
+    Again, feature extraction with pre-trained model might be sensitive to these.
 
 To reproduce final run:
 - Run "python predict.py"
+
+Credit Due To:
+- Joseph Redmon's YOLO Darknet repo for help generating the visualization.
+- Keras, SKLearn, Numpy, etc. Documentation
+- Lots of Stack Overflow
+- Specific functions built off code from elsewhere is cited in comments and docstrings.

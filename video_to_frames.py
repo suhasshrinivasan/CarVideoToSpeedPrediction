@@ -28,8 +28,8 @@ def get_video_frames(data_filepath, override_existing=True):
             if cv2.waitKey(10) == 27:  # Exit if Escape is hit
                 break
             count += 1
-        count -= 1  # Last "converted" fram JPEG is actually empty
-        print('Data converted to ' + str(count) + ' frames.')
+        count -= 1
+        print('Data converted to frames.')
 
     return len(filter(lambda frame:
         frame[:5] == 'frame' and frame[-4:] == '.jpg', os.listdir(data_frames_dir))) - 1

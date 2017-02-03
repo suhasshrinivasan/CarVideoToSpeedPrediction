@@ -42,7 +42,7 @@ extract_features(
     data_filepath, num_frames, extraction_network=extraction_network, override_existing=False)
 npz_file = np.load(features_filepath)
 X_test = npz_file['arr_0']
-print('Extracted Feature Data Shape: ' + str(X_test.shape))
+print('Features Extracted.')
 
 # Split data
 time_speed_data = time_speed_data[:X_test.shape[0],:]

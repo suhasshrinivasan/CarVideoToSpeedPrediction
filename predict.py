@@ -53,7 +53,7 @@ filename_base = 'drive_orig_theano'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
-print ('Set to train ' + str.upper(model_type) + ' Model.')
+print('Set to train ' + str.upper(model_type) + ' Model.')
 
 # Get feature data
 data_filepath = data_filename_base + '.mp4'
@@ -62,7 +62,7 @@ extract_features(
     data_filepath, num_frames, extraction_network=extraction_network, override_existing=False)
 npz_file = np.load(features_filepath)
 X = npz_file['arr_0']
-print('Extracted Feature Data Shape: ' + str(X.shape))
+print('Features Extracted.')
 
 # Get labels
 with open (data_filename_base + '.json', 'r') as json_raw_data:
