@@ -11,7 +11,8 @@ Final model:
 - Train Set MSE of 3.84
 
 Here are the main modules I used to produce proper runs and results:
-- ***Keras 1.2.1*** Important: Other versions might not extract features identically
+- ***Keras 1.2.1*** Important: Other versions (particularly 1.1)
+    might not extract features identically.
 - Keras backend: Theano 0.8.2 or Tensorflow 0.12.1
 - Python 2.7
 - Numpy 1.12.0 or 1.11.1

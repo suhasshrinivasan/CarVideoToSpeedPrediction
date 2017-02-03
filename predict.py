@@ -41,7 +41,7 @@ val_fraction = 0.15  # What fraction of the training data to use for validation
 train_fraction = 0.839  # Split for train+val chosen to equalize ratio of highway to city driving in training and testing data
 val_data_location = None  # What section ('beg', 'end', or None) the validation comes from within the training data. None to train and test final model.
 test_data_location = 'end'  # What section ('beg' or 'end') test data comes from withing full data
-overwrite_final_model = True
+overwrite_final_model = Final
 
 # Initial Setup
 using = 'cpu'
@@ -84,7 +84,6 @@ else:  # Select from 'end' by default
     X_test = X[num_train:,:]
     time_speed_data_train = time_speed_data[:num_train,:]
     time_speed_data_test = time_speed_data[num_train:,:]
-
 
 time_train = time_speed_data_train[:,0].reshape(-1,1)
 y_train = time_speed_data_train[:,1].reshape(-1,1)
@@ -186,8 +185,6 @@ if model_type[-2:] != 'nn':  # Simple Model
 
 else:  # Neural Network Model
     print('Keras model training optimized for ' + str.upper(using) + '.')
-    # X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
-    # X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
     l1_reg = 0.0
     l2_reg = 0.0

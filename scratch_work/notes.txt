@@ -1,11 +1,4 @@
-Runtime:
-- Convert mp4 to jpg’s if necessary
-- Extract features from jpgs if necessary
-- Predict over features with saved model
-- Smooth predictions
-  - Moving Average over 139 Frames works well (Ridge Smoothed Test MSE: 4.58)
-
-MSE Results:
+MSE Preliminary Results (No Smoothing):
 - Mean Prediction: 83.23
 - RFR(n_estimators=4, max_depth=4, max_features=1.0): 21.93 (8.88 Train MSE) (HP Sweep incomplete)
 - LinearRegression(): 20.53

@@ -1,6 +1,0 @@
-Delete commented code
-Make it so predict.py gives final test run
-- Make sure this doesn't overwrite given model!
-Ensure test.py works properly and note down value it gives when working correctly
-Delete unncessary files
-Commit final test run graph!
