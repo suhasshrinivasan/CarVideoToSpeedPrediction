@@ -176,11 +176,16 @@ if model_type[-2:] != 'nn':  # Simple Model
             plt.savefig('test_error_plot.png')
             plt.show()
 
+    # Save Model and Associated Preprocessor
     if overwrite_final_model:
     	with open('final_model.pickle', 'wb') as f:
     		pickle.dump(model, f, -1)
-
     	with open('final_scaler.pickle', 'wb') as f:
+    		pickle.dump(scaler, f, -1)
+    else:
+    	with open('model.pickle', 'wb') as f:
+    		pickle.dump(model, f, -1)
+    	with open('scaler.pickle', 'wb') as f:
     		pickle.dump(scaler, f, -1)
 
 else:  # Neural Network Model
