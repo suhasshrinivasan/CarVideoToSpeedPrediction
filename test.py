@@ -19,7 +19,7 @@ extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_signal_window_size = 151
 data_dir = 'data/'
-filename_base = 'drive_orig'
+filename_base = 'drive_orig_theano'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')

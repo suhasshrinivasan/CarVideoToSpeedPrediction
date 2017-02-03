@@ -33,7 +33,7 @@ smooth_data = ma_smoothing
 smooth_data_window_size = 1
 smooth_signal_window_size = 151
 scale_data = True
-show_model_plots = True
+show_model_plots = False
 best_config = {'model_type': 'ridge', 'alpha': 40000.0}  # alpha=20000 good too. None for HP Sweep or non-final runs
 best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
@@ -48,7 +48,7 @@ if len(sys.argv) >= 2 and (sys.argv[-1] == '-g' or sys.argv[1] == '--gpu-optimiz
     using = 'gpu'
 model_type = str.lower(model_type)
 data_dir = 'data/'
-filename_base = 'drive'
+filename_base = 'drive_orig_theano'
 data_filename_base = os.path.join(data_dir, filename_base)
 features_filepath = data_filename_base + '_' + extraction_network + '.npz'
 warnings.filterwarnings(action='ignore', module='scipy', message='^internal gelsd')
