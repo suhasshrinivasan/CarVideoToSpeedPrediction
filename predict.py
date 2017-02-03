@@ -142,7 +142,7 @@ if model_type[-2:] != 'nn':  # Simple Model
     model = init_model(best_config)
     model.fit(X_train, y_train)
 
-    if not smooth_signal_window_sizes isinstance(a, (list, tuple)):
+    if not isinstance(smooth_signal_window_sizes, (list, tuple)):
         smooth_signal_window_sizes = [smooth_signal_window_sizes]
 
     for smooth_signal_window_size in smooth_signal_window_sizes:
