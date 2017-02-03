@@ -33,7 +33,7 @@ To test on new data:
 To verify running properly:
 - Run "python test.py -v"
 - This will run the model over the training and testing data used originally.
-- Should receive message "Test MSE: 4.60" printed to terminal.
+- Should receive message "Test MSE: 4.21" printed to terminal.
 - If not, use Keras 1.2.1. Feature extraction with pre-trained model might be sensitive to
     Keras version. Also try Theano 0.8.2 or Tensorflow 0.12.1 as Keras backend,
     if not using already.

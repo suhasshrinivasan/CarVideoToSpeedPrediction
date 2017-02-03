@@ -41,7 +41,7 @@ val_fraction = 0.15  # What fraction of the training data to use for validation
 train_fraction = 0.839  # Split for train+val chosen to equalize ratio of highway to city driving in training and testing data
 val_data_location = None  # What section ('beg', 'end', or None) the validation comes from within the training data. None to train and test final model.
 test_data_location = 'end'  # What section ('beg' or 'end') test data comes from withing full data
-overwrite_final_model = Final
+overwrite_final_model = False
 
 # Initial Setup
 using = 'cpu'
