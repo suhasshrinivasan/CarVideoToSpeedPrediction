@@ -31,13 +31,11 @@ extraction_network = 'resnet50'
 smooth_signal = ma_smoothing
 smooth_data = ma_smoothing
 smooth_data_window_size = 1
-smooth_signal_window_sizes = [101, 151, 191, 241, 291]  # Set to a list of values to test them via validation
+smooth_signal_window_sizes = 153  # Set to a list of values to test them via validation OR to a value to set it constant
 scale_data = True
 show_model_plots = True
-best_config = None
-best_pca_n_components = None
-# best_config = {'model_type': 'ridge', 'alpha': 10000.0}  # alpha=3000 good too. None for HP Sweep or non-final runs
-# best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
+best_config = {'model_type': 'ridge', 'alpha': 20000.0}  # alpha=3000 good too. None for HP Sweep or non-final runs
+best_pca_n_components = 0  # <= num features, 0 for No PCA (best for ridge), None to HP Sweep
 k_fold = 10  # For Cross-Validation. Needs to be >5 for training folds to have enough data
 val_fraction = 0.15  # What fraction of the training data to use for validation
 train_fraction = 0.839  # Split for train+val chosen to equalize ratio of highway to city driving in training and testing data
@@ -146,6 +144,7 @@ if model_type[-2:] != 'nn':  # Simple Model
         smooth_signal_window_sizes = [smooth_signal_window_sizes]
 
     for smooth_signal_window_size in smooth_signal_window_sizes:
+        print smooth_signal_window_size
         y_train_pred = model.predict(X_train)
         print(str.upper(model_type) +
             ' Model Train MSE: %.2f' % mean_squared_error(y_train, y_train_pred))
@@ -166,12 +165,16 @@ if model_type[-2:] != 'nn':  # Simple Model
             plt.plot(y_train,label='Actual')
             plt.plot(y_train_pred, label='Predicted')
             plt.plot(y_train_pred_smoothed, label='Predicted Smoothed')
+            plt.title('Training Data: 3.84 MSE')
             plt.show()
+            plt.savefig('train_error_plot.png')
 
             plt.plot(y_test,label='Actual')
             plt.plot(y_test_pred, label='Predicted')
             plt.plot(y_test_pred_smoothed, label='Predicted Smoothed')
+            plt.title('Testing Data: 6.31 MSE')
             plt.show()
+            plt.savefig('test_error_plot.png')
 
     if best_config is not None:
     	with open('final_model.pickle', 'wb') as f:
