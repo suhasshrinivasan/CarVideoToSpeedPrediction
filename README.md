@@ -7,8 +7,14 @@ Final model:
 - Extract Features from frames using pre-trained Residual Network 50
 - Performs Ridge Regression to predict speed at each frame
 - Smooths resulting speed prediction vector via a moving average method
-- Test Set MSE of 4.22 (2.05 RMSE m/s)
-- Train Set MSE of 2.97 (1.72 RMSE m/s)
+- Test Set (~1 min video) MSE of 4.22 (2.05 RMSE m/s)
+- Train Set (~5 min video) MSE of 2.97 (1.72 RMSE m/s)
+
+Notes on the approach:
+- This is a small data, deep learning approach to this problem.
+- An alternative, effective approach using more classical CV would be Optical Flow.
+- An alternative, effective approach for large data using deep learning would be to use
+    an RNN over the extracted features.
 
 Be sure to check out cool_viz.mp4 for a cool visualization!
 
